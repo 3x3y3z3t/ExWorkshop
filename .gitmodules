@@ -1,0 +1,3 @@
+[submodule "ExWorkshop\\vendor\\glfw"]
+	path = ExWorkshop\\vendor\\glfw
+	url = https://github.com/3x3y3z3t/glfw
