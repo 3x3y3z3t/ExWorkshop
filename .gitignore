@@ -1,0 +1,15 @@
+
+.vs/
+**/bin/
+**/chessu
+
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+*.exe
+*.json
+*.log
+*.pdb
+*.lib
+*.ini
