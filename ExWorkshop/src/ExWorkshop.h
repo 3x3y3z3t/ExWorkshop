@@ -11,6 +11,8 @@
 #include "exw\input\KeyCodes.h"
 #include "exw\input\MouseButtonCodes.h"
 
+#include "exw\maths\vector2.h"
+
 #include "exw\layers\Layer.h"
 
 #include "exw\utils\Log.h"

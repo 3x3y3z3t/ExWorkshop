@@ -15,7 +15,28 @@ namespace sb
         {}
 
         void update(exw::Timestep _ts) override
-        {}
+        {
+
+            {
+                using namespace exw;
+
+                maths::vector2 d1(1.0f, 2.0f);
+                maths::vector2 d2(2.0f, 3.0f);
+
+
+                //EXW_LOG_DEBUG("{0}", (d1 + d2).to_string());
+
+
+
+            }
+
+
+
+
+
+
+
+        }
 
         void render_gui() override
         {}

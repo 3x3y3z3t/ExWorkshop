@@ -27,6 +27,7 @@ workspace "ExWorkshop"
     IncludeDir = {}
     IncludeDir["GLFW"] = "%{wks.location}/ExWorkshop/vendor/GLFW/include"
     IncludeDir["spdlog"] = "%{wks.location}/ExWorkshop/vendor/spdlog/include"
+    IncludeDir["glm"] = "%{wks.location}/ExWorkshop/vendor/glm"
 
 group "Dependencies"
 	include "vendor/premake"

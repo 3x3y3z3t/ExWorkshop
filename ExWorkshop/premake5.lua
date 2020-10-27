@@ -14,6 +14,8 @@ project "ExWorkshop"
 	{
 		"src/**.h",
 		"src/**.cpp",
+		"vendor/glm/glm/**.hpp",
+		"vendor/glm/glm/**.inl",
 	}
 
 	defines
@@ -28,6 +30,7 @@ project "ExWorkshop"
         "src",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.spdlog}",
+        "%{IncludeDir.glm}",
 	}
 
 	links

@@ -17,6 +17,7 @@ project "Sandbox"
 	{
 		"%{wks.location}/ExWorkshop/src",
         "%{IncludeDir.spdlog}",
+        "%{IncludeDir.glm}",
 	}
 
 	links
