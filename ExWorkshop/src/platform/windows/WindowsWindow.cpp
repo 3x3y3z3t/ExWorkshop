@@ -8,6 +8,8 @@ namespace exw
 {
     static uint8_t s_GLFWwindow_count = 0U;
 
+    static void glfw_error_callback(int _errCode, const char* _message) { EXW_LOG_ERROR("GLFW error {0}: {1}", _errCode, _message); }
+
     WindowsWindow::WindowsWindow(const WindowProperties& _properties)
     {
         init(_properties);
@@ -43,6 +45,8 @@ namespace exw
         m_Data.title = _properties.title;
         m_Data.width = _properties.width;
         m_Data.height = _properties.height;
+
+        EXW_LOG_INFO("Creating window \"{0}\" ({1}, {2}) at default position..", _properties.title, _properties.width, _properties.height);
 
         if (s_GLFWwindow_count == 0)
         {
@@ -145,6 +149,21 @@ namespace exw
             event::MouseMovedEvent evt((float)_xPos, (float)_yPos);
             data.callback(evt);
         });
+
+
+
+        //int ww = 0, hh = 0;
+        //GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+        //glfwGetMonitorPhysicalSize(monitor, &ww, &hh);
+        //EXW_LOG_DEBUG("PhysicalScale = ({0}, {1})", ww, hh);
+        //float fw = 0, fh = 0;
+        //glfwGetMonitorContentScale(monitor, &fw, &fh);
+        //EXW_LOG_DEBUG("ContentScale =  ({0}, {1})", fw, fh);
+        //glfwGetWindowContentScale(m_Window, &fw, &fh);
+        //EXW_LOG_DEBUG("WindowScale =   ({0}, {1})", fw, fh);
+
+
+
     }
 
     void WindowsWindow::shutdown()

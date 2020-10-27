@@ -3,6 +3,7 @@
 #include "Application.h"
 
 #include "exw\utils\Timestep.h"
+#include "exw\utils\Random.h"
 
 #include <GLFW\glfw3.h>
 
@@ -16,6 +17,9 @@ namespace exw
         s_Instance = this;
         m_Window = Window::create({ _name, _width, _height });
         m_Window->set_event_callback(EXW_BIND_EVENT_FUNCTION(Application::on_event));
+
+
+        utils::RNG32::init();
 
         m_Is_running = true;
     }

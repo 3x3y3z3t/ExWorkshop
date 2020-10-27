@@ -19,6 +19,7 @@ project "ExWorkshop"
 	defines
 	{
         "_CRT_SECURE_NO_WARNINGS",
+        "EXW_CORE_LIB",
         "GLFW_INCLUDE_NONE",
 	}
 
@@ -26,6 +27,7 @@ project "ExWorkshop"
 	{
         "src",
         "%{IncludeDir.GLFW}",
+        "%{IncludeDir.spdlog}",
 	}
 
 	links

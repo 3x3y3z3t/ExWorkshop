@@ -31,8 +31,13 @@ public:
         this->get_window().set_vsync(false);
 
 
-
         push_layer(new sb::SbLayer());
+
+
+        EXW_LOG_INFO("Hello from Sandbox");
+
+
+
     }
 
     ~Sandbox() {}
