@@ -7,6 +7,7 @@
 
 #include "exw\events\Events.h"
 
+#include "exw\input\Input.h"
 #include "exw\input\KeyCodes.h"
 #include "exw\input\MouseButtonCodes.h"
 

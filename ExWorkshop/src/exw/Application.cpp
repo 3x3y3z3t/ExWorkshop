@@ -64,10 +64,16 @@ namespace exw
     }
 
     void Application::push_layer(Layer* _layer)
-    {}
+    {
+        m_Layer_stack.push_layer(_layer);
+        _layer->attach();
+    }
 
     void Application::push_overlay(Layer* _overlay)
-    {}
+    {
+        m_Layer_stack.push_overlay(_overlay);
+        _overlay->attach();
+    }
 
     void Application::run()
     {

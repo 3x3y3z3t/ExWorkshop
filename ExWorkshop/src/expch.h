@@ -9,4 +9,5 @@
 #include <random>
 #include <sstream>
 #include <string>
+#include <variant>
 #include <vector>

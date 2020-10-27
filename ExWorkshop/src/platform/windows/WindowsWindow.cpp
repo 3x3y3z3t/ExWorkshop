@@ -86,19 +86,19 @@ namespace exw
             {
                 case GLFW_PRESS:
                 {
-                    event::KeyPressedEvent evt(_key, 0);
+                    event::KeyPressedEvent evt(static_cast<Keys>(_key), 0);
                     data.callback(evt);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
-                    event::KeyReleasedEvent evt(_key);
+                    event::KeyReleasedEvent evt(static_cast<Keys>(_key));
                     data.callback(evt);
                     break;
                 }
                 case GLFW_REPEAT:
                 {
-                    event::KeyPressedEvent evt(_key, 1);
+                    event::KeyPressedEvent evt(static_cast<Keys>(_key), 1);
                     data.callback(evt);
                     break;
                 }
