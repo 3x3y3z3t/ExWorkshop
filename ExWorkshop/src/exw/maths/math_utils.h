@@ -31,7 +31,7 @@ namespace exw
         template <typename T>
         inline static T sign(T _t) { if (_t > 0) return 1; if (_t < 0) return -1; return 0; }
 
-        static matrix4 orthographics(float _left, float _right, float _bottom, float _top, float _near, float _far)
+        static matrix4 orthographic(float _left, float _right, float _bottom, float _top, float _near, float _far)
         {
             return matrix4(glm::ortho(_left, _right, _bottom, _top, _near, _far));
         }
