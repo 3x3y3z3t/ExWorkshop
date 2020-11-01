@@ -23,15 +23,17 @@ workspace "ExWorkshop"
 
     outputdir = "%{cfg.buildcfg}_%{cfg.system}_%{cfg.architecture}"
 
-    -- Include directories relative to root folder (solution directory)
     IncludeDir = {}
-    IncludeDir["GLFW"] = "%{wks.location}/ExWorkshop/vendor/GLFW/include"
-    IncludeDir["spdlog"] = "%{wks.location}/ExWorkshop/vendor/spdlog/include"
+    IncludeDir["glfw"] = "%{wks.location}/ExWorkshop/vendor/glfw/include"
     IncludeDir["glm"] = "%{wks.location}/ExWorkshop/vendor/glm"
+    IncludeDir["glad"] = "%{wks.location}/ExWorkshop/vendor/glad/include"
+    IncludeDir["spdlog"] = "%{wks.location}/ExWorkshop/vendor/spdlog/include"
+    IncludeDir["stb_image"] = "%{wks.location}/ExWorkshop/vendor/stb_image"
 
 group "Dependencies"
 	include "vendor/premake"
 	include "ExWorkshop/vendor/GLFW"
+	include "ExWorkshop/vendor/Glad"
     
 group ""
     include "ExWorkshop"

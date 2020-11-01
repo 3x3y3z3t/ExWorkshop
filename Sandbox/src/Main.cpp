@@ -1,6 +1,6 @@
 // ;
 #include <ExWorkshop.h>
-#include <exw\EntryPoint.h>
+//#include <exw\EntryPoint.h>
 
 namespace sb
 {
@@ -11,10 +11,17 @@ namespace sb
             : Layer("sb_layer")
         {}
 
-        void on_event(exw::event::Event& _event) override
-        {}
+        virtual void attach()
+        {
+            exw::graphics::RenderCommand::set_clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
+        }
 
-        void update(exw::Timestep _ts) override
+        virtual void detach()
+        {
+
+        }
+
+        virtual void update(exw::Timestep _ts) override
         {
 
             {
@@ -26,6 +33,30 @@ namespace sb
 
                 //EXW_LOG_DEBUG("{0}", (d1 + d2).to_string());
 
+            }
+
+            {
+                using namespace exw;
+                using namespace exw::graphics;
+
+                RenderCommand::clear();
+
+
+                OrthographicCamera cam = OrthographicCamera(-16.0f, 16.0f, -9.0f, 9.0f);
+
+
+                Renderer2D::begin_scene(cam);
+
+
+                Renderer2D::draw_quad({ 2.0f, 2.0f, 0.0f }, { 0.5f, 0.5f }, { 0.0, 1.0f, 1.0f, 1.0f });
+
+
+                refs::ref<Texture2D> kingPcsTexture = Texture2D::create("res/img/chessu/70px_2_1.png");
+
+                Renderer2D::draw_quad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, kingPcsTexture);
+
+
+                Renderer2D::end_scene();
 
 
             }
@@ -38,7 +69,10 @@ namespace sb
 
         }
 
-        void render_gui() override
+        virtual void render_gui() override
+        {}
+
+        virtual void on_event(exw::event::Event& _event) override
         {}
     };
 }
@@ -55,7 +89,6 @@ public:
         push_layer(new sb::SbLayer());
 
 
-        EXW_LOG_INFO("Hello from Sandbox");
 
 
 

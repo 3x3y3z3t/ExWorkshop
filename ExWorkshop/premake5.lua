@@ -16,6 +16,8 @@ project "ExWorkshop"
 		"src/**.cpp",
 		"vendor/glm/glm/**.hpp",
 		"vendor/glm/glm/**.inl",
+		"vendor/stb_image/**.h",
+		"vendor/stb_image/**.cpp",
 	}
 
 	defines
@@ -28,14 +30,18 @@ project "ExWorkshop"
 	includedirs
 	{
         "src",
-        "%{IncludeDir.GLFW}",
-        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.glfw}",
         "%{IncludeDir.glm}",
+        "%{IncludeDir.glad}",
+        "%{IncludeDir.spdlog}",
+		"%{IncludeDir.stb_image}",
 	}
 
 	links
 	{
         "GLFW",
+        "Glad",
+        "opengl32.lib",
 	}
 
 	filter "system:windows"

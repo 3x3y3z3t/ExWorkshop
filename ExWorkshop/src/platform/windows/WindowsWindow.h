@@ -2,6 +2,7 @@
 #pragma once
 
 #include "exw\Window.h"
+#include "exw\graphics\GraphicsContext.h"
 
 #include <GLFW\glfw3.h>
 
@@ -38,6 +39,7 @@ namespace exw
         };
 
         GLFWwindow* m_Window;
+        refs::scope<graphics::GraphicsContext> m_Context;
         WindowData m_Data;
     };
 }

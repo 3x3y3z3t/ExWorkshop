@@ -3,6 +3,7 @@
 #include "WindowsWindow.h"
 
 #include "exw\events\Events.h"
+#include "exw\graphics\Renderer.h"
 
 namespace exw
 {
@@ -23,6 +24,7 @@ namespace exw
     void WindowsWindow::update()
     {
         glfwPollEvents();
+        m_Context->swap_buffers();
     }
 
     bool WindowsWindow::is_vsync_set() const
@@ -52,10 +54,19 @@ namespace exw
         {
             int stat = glfwInit();
             EXW_ASSERT(stat, "GLFW initialization failure.");
+            glfwSetErrorCallback(glfw_error_callback);
         }
+
+        #if EXW_DBG
+        if (graphics::Renderer::get_render_api() == graphics::RenderAPI::API::OpenGL)
+            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+        #endif
 
         m_Window = glfwCreateWindow((int)_properties.width, (int)_properties.height, _properties.title.c_str(), nullptr, nullptr);
         ++s_GLFWwindow_count;
+
+        m_Context = graphics::GraphicsContext::create(m_Window);
+        m_Context->init();
 
         glfwSetWindowUserPointer(m_Window, &m_Data);
         set_vsync(true); // to save your GPU :))

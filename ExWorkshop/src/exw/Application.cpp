@@ -2,6 +2,7 @@
 #include "expch.h"
 #include "Application.h"
 
+#include "exw\graphics\Renderer.h"
 #include "exw\utils\Timestep.h"
 #include "exw\utils\Random.h"
 
@@ -18,6 +19,7 @@ namespace exw
         m_Window = Window::create({ _name, _width, _height });
         m_Window->set_event_callback(EXW_BIND_EVENT_FUNCTION(Application::on_event));
 
+        graphics::Renderer::init();
 
         utils::RNG32::init();
 
@@ -25,7 +27,9 @@ namespace exw
     }
 
     Application::~Application()
-    {}
+    {
+        graphics::Renderer::shutdown();
+    }
 
     void Application::close()
     {
@@ -51,6 +55,7 @@ namespace exw
             }
 
             m_Is_minimized = false;
+            graphics::Renderer::on_window_resize(_evt.get_width(), _evt.get_height());
 
             return false;
         });
@@ -82,6 +87,7 @@ namespace exw
             float time = (float)(glfwGetTime() * 1000.0);
             Timestep timestep = time - m_Last_frametime;
             m_Last_frametime = time;
+            //EXW_LOG_DEBUG("frametime = {0}", timestep);
 
             if (!m_Is_minimized)
             {
