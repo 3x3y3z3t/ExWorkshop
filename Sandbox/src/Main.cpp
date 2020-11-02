@@ -23,15 +23,9 @@ namespace sb
 
         virtual void update(exw::Timestep _ts) override
         {
-
             {
                 using namespace exw;
 
-                maths::vector2 d1(1.0f, 2.0f);
-                maths::vector2 d2(2.0f, 3.0f);
-
-
-                //EXW_LOG_DEBUG("{0}", (d1 + d2).to_string());
 
             }
 
@@ -48,12 +42,32 @@ namespace sb
                 Renderer2D::begin_scene(cam);
 
 
-                Renderer2D::draw_quad({ 2.0f, 2.0f, 0.0f }, { 0.5f, 0.5f }, { 0.0, 1.0f, 1.0f, 1.0f });
+                //Renderer2D::draw_quad({ 2.0f, 2.0f, 0.0f }, { 0.5f, 0.5f }, { 0.0, 1.0f, 1.0f, 1.0f });
+
+
+                constexpr float xm = 16.0f;
+                constexpr float ym = 9.0f;
+
+                constexpr float step = 0.25f;
+
+                constexpr float size = 0.22f;
+
+
+                for (float y = -ym; y <= ym; y += step)
+                {
+                    for (float x = -xm; x <= xm; x += step)
+                    {
+                        Renderer2D::draw_quad({ x, y, 0.0f }, { size, size }, { 0.5f ,0.5f, 0.5f, 1.0f });
+                    }
+                }
+
+
+
 
 
                 refs::ref<Texture2D> kingPcsTexture = Texture2D::create("res/img/chessu/70px_2_1.png");
 
-                Renderer2D::draw_quad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, kingPcsTexture);
+                //Renderer2D::draw_quad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, kingPcsTexture);
 
 
                 Renderer2D::end_scene();
