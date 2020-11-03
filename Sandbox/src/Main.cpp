@@ -13,16 +13,19 @@ namespace sb
 
         virtual void attach()
         {
+            EXW_PROFILE_FUNCTION();
             exw::graphics::RenderCommand::set_clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
         }
 
         virtual void detach()
         {
+            EXW_PROFILE_FUNCTION();
 
         }
 
         virtual void update(exw::Timestep _ts) override
         {
+            EXW_PROFILE_FUNCTION();
             {
                 using namespace exw;
 
@@ -30,14 +33,13 @@ namespace sb
             }
 
             {
+                EXW_PROFILE_SCOPE("Sandbox Rendering");
                 using namespace exw;
                 using namespace exw::graphics;
 
                 RenderCommand::clear();
 
-
                 OrthographicCamera cam = OrthographicCamera(-16.0f, 16.0f, -9.0f, 9.0f);
-
 
                 Renderer2D::begin_scene(cam);
 
@@ -57,7 +59,14 @@ namespace sb
                 {
                     for (float x = -xm; x <= xm; x += step)
                     {
+                        exw::maths::vector4 color = {
+                            exw::utils::RNG32::next_float(),
+                            exw::utils::RNG32::next_float(),
+                            exw::utils::RNG32::next_float(),
+                            exw::utils::RNG32::next_float(),
+                        };
                         Renderer2D::draw_quad({ x, y, 0.0f }, { size, size }, { 0.5f ,0.5f, 0.5f, 1.0f });
+                        //Renderer2D::draw_quad({ x, y, 0.0f }, { size, size }, color);
                     }
                 }
 
@@ -84,10 +93,14 @@ namespace sb
         }
 
         virtual void render_gui() override
-        {}
+        {
+            EXW_PROFILE_FUNCTION();
+        }
 
         virtual void on_event(exw::event::Event& _event) override
-        {}
+        {
+            EXW_PROFILE_FUNCTION();
+        }
     };
 }
 

@@ -34,26 +34,31 @@ namespace exw
 
         OpenGLVertexArray::OpenGLVertexArray()
         {
+            EXW_PROFILE_FUNCTION();
             glCreateVertexArrays(1, &m_Renderer_id);
         }
 
         OpenGLVertexArray::~OpenGLVertexArray()
         {
+            EXW_PROFILE_FUNCTION();
             glDeleteVertexArrays(1, &m_Renderer_id);
         }
 
         void OpenGLVertexArray::bind() const
         {
+            EXW_PROFILE_FUNCTION();
             glBindVertexArray(m_Renderer_id);
         }
 
         void OpenGLVertexArray::unbind() const
         {
+            EXW_PROFILE_FUNCTION();
             glBindVertexArray(0);
         }
 
         void OpenGLVertexArray::add_vertex_buffer(const refs::ref<VertexBuffer>& _vertexBuffer)
         {
+            EXW_PROFILE_FUNCTION();
             EXW_ASSERT(_vertexBuffer->get_layout().get_elements().size() != 0U, "This Vertex buffer has no layout!");
 
             glBindVertexArray(m_Renderer_id);
@@ -115,6 +120,7 @@ namespace exw
 
         void OpenGLVertexArray::set_index_buffer(const refs::ref<IndexBuffer>& _indexBuffer)
         {
+            EXW_PROFILE_FUNCTION();
             glBindVertexArray(m_Renderer_id);
             _indexBuffer->bind();
             m_Index_buffer = _indexBuffer;

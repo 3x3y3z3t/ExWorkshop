@@ -17,6 +17,7 @@ namespace exw
 
         void OpenGLGraphicsContext::init()
         {
+            EXW_PROFILE_FUNCTION();
             glfwMakeContextCurrent(m_Window);
             int stat = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
             EXW_ASSERT(stat, "Glad initialization failure.");
@@ -31,6 +32,7 @@ namespace exw
 
         void OpenGLGraphicsContext::swap_buffers()
         {
+            EXW_PROFILE_FUNCTION();
             glfwSwapBuffers(m_Window);
         }
     }

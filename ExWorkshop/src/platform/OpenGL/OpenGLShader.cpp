@@ -26,6 +26,7 @@ namespace exw
 
         OpenGLShader::OpenGLShader(const std::string& _filepath)
         {
+            EXW_PROFILE_FUNCTION();
             std::string source = read_source_from_file(_filepath);
             auto shaderSources = pre_process_source(source);
             compile(shaderSources);
@@ -41,6 +42,7 @@ namespace exw
         OpenGLShader::OpenGLShader(const std::string& _shaderName, const std::string& _vertSrc, const std::string& _fragSrc)
             : m_Name(_shaderName)
         {
+            EXW_PROFILE_FUNCTION();
             std::unordered_map<GLenum, std::string> shaderSources;
             shaderSources[GL_VERTEX_SHADER] = _vertSrc;
             shaderSources[GL_FRAGMENT_SHADER] = _fragSrc;
@@ -49,51 +51,61 @@ namespace exw
 
         OpenGLShader::~OpenGLShader()
         {
+            EXW_PROFILE_FUNCTION();
             glDeleteProgram(m_Renderer_id);
         }
 
         void OpenGLShader::bind() const
         {
+            EXW_PROFILE_FUNCTION();
             glUseProgram(m_Renderer_id);
         }
 
         void OpenGLShader::unbind() const
         {
+            EXW_PROFILE_FUNCTION();
             glUseProgram(0);
         }
 
         void OpenGLShader::set_uniform_int(const std::string& _name, int _value)
         {
+            EXW_PROFILE_FUNCTION();
             upload_uniform(_name, _value);
         }
 
         void OpenGLShader::set_uniform_int_arr(const std::string& _name, int* _value, uint32_t _count)
         {
+            EXW_PROFILE_FUNCTION();
             upload_uniform(_name, _value, _count);
         }
 
         void OpenGLShader::set_uniform_float(const std::string& _name, float _value)
         {
+            EXW_PROFILE_FUNCTION();
             upload_uniform(_name, _value);
         }
 
         void OpenGLShader::set_uniform_float2(const std::string& _name, const maths::vector2& _value)
         {
+            EXW_PROFILE_FUNCTION();
             upload_uniform(_name, _value);
         }
 
         void OpenGLShader::set_uniform_float3(const std::string& _name, const maths::vector3& _value)
         {
+            EXW_PROFILE_FUNCTION();
             upload_uniform(_name, _value);
         }
 
         void OpenGLShader::set_uniform_float4(const std::string& _name, const maths::vector4& _value)
         {
+            EXW_PROFILE_FUNCTION();
             upload_uniform(_name, _value);
         }
 
         void OpenGLShader::set_uniform_mat4x4(const std::string& _name, const maths::matrix4& _value)
         {
+            EXW_PROFILE_FUNCTION();
             upload_uniform(_name, _value);
         }
 
@@ -134,6 +146,7 @@ namespace exw
 
         std::string OpenGLShader::read_source_from_file(const std::string& _filepath)
         {
+            EXW_PROFILE_FUNCTION();
             std::string res;
             std::ifstream ifs(_filepath, std::ios::in | std::ios::binary);
 
@@ -165,6 +178,7 @@ namespace exw
 
         std::unordered_map<uint32_t, std::string> OpenGLShader::pre_process_source(const std::string& _source)
         {
+            EXW_PROFILE_FUNCTION();
             std::unordered_map<GLenum, std::string> shaderSources;
 
             const char* typeToken = "#type";
@@ -191,6 +205,7 @@ namespace exw
 
         bool OpenGLShader::compile(const std::unordered_map<uint32_t, std::string>& _shaderSources)
         {
+            EXW_PROFILE_FUNCTION();
             // TODO: don't crash the program;
             GLuint program = glCreateProgram();
             EXW_ASSERT(_shaderSources.size() <= 2, "Multiple shaders is not supported.");

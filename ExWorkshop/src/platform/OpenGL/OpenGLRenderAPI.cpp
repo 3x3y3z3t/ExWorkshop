@@ -23,6 +23,7 @@ namespace exw
 
         void OpenGLRenderAPI::init()
         {
+            EXW_PROFILE_FUNCTION();
             #if EXW_DBG
             glEnable(GL_DEBUG_OUTPUT);
             glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -42,6 +43,7 @@ namespace exw
 
         void OpenGLRenderAPI::draw_indexed(const refs::ref<VertexArray>& _vertexArray, uint32_t _indexCount)
         {
+            EXW_PROFILE_FUNCTION();
             // NOTICE: Send them to the other side!!;
             auto vibcount = (_indexCount != 0)? _indexCount : _vertexArray->get_index_buffer()->count();
             glDrawElements(GL_TRIANGLES, vibcount, GL_UNSIGNED_INT, nullptr);

@@ -1,6 +1,8 @@
 // ;
 #pragma once
-#include "expch.h"
+//#include "expch.h"
+
+#include <memory>
 
 #pragma region Platform Detection
 
@@ -56,18 +58,18 @@
     #define EXW_DEBUGBREAK() 
 #endif
 
-#define EXW_EXPAND(_x) _x
-#define EXW_STRINGIFY(_x) #_x
+#define EXW_EXPAND(_x)                      _x
+#define EXW_STRINGIFY(_x)                   #_x
 
-#define BIT(_x) (1 << _x)
-#define BIT_AT(_integer, _pos) ((_integer >> _pos) % 2)
-#define TEST(_integer, _pos) (BIT_AT(_integer, _pos) != 0)
+#define BIT(_x)                             (1 << _x)
+#define BIT_AT(_integer, _pos)              ((_integer >> _pos) % 2)
+#define TEST(_integer, _pos)                (BIT_AT(_integer, _pos) != 0)
 
-#define IS_FLAG_SET(_flags, _flag) ((_flags & _flag) != 0)
+#define IS_FLAG_SET(_flags, _flag)          ((_flags & _flag) != 0)
 
-#define EXW_BIND_EVENT_FUNCTION(_func) [this](auto&&... _args) -> decltype(auto) { return this->_func(std::forward<decltype(_args)>(_args)...); }
+#define EXW_BIND_EVENT_FUNCTION(_func)      [this](auto&&... _args) -> decltype(auto) { return this->_func(std::forward<decltype(_args)>(_args)...); }
 
-#define this_typeid_name() typeid(*this).name()
+#define this_typeid_name()                  typeid(*this).name()
 
 namespace exw
 {
@@ -97,22 +99,22 @@ namespace exw
      * "NO_MSG" and provide support for custom formatting by concatenating the
      * formatting string instead of having the format inside the default message.
      */
-    #define EXW_INTERNAL_ASSERT_IMPL(_type, _check, _msg, ...) { if(!(_check)) { EXW_LOG##_type##ERROR(_msg, __VA_ARGS__); EXW_DEBUGBREAK(); } }
+    #define EXW_INTERNAL_ASSERT_IMPL(_type, _check, _msg, ...)              { if(!(_check)) { EXW_LOG##_type##ERROR(_msg, __VA_ARGS__); EXW_DEBUGBREAK(); } }
 
-    #define EXW_INTERNAL_ASSERT_WITH_MSG(_type, _check, ...) EXW_INTERNAL_ASSERT_IMPL(_type, _check, "Assertion failed: {0}", __VA_ARGS__)
-    #define EXW_INTERNAL_ASSERT_NO_MSG(_type, _check) EXW_INTERNAL_ASSERT_IMPL(_type, _check, "Assertion '{0}' failed at {1}:{2}", EXW_STRINGIFY(_check), std::filesystem::path(__FILE__).filename().string(), __LINE__)
+    #define EXW_INTERNAL_ASSERT_WITH_MSG(_type, _check, ...)                EXW_INTERNAL_ASSERT_IMPL(_type, _check, "Assertion failed: {0}", __VA_ARGS__)
+    #define EXW_INTERNAL_ASSERT_NO_MSG(_type, _check)                       EXW_INTERNAL_ASSERT_IMPL(_type, _check, "Assertion '{0}' failed at {1}:{2}", EXW_STRINGIFY(_check), std::filesystem::path(__FILE__).filename().string(), __LINE__)
 
-    #define EXW_INTERNAL_ASSERT_GET_MACRO_NAME(_arg1, _arg2, _macro, ...) _macro
-    #define EXW_INTERNAL_ASSERT_GET_MACRO(...) EXW_EXPAND(EXW_INTERNAL_ASSERT_GET_MACRO_NAME(__VA_ARGS__, EXW_INTERNAL_ASSERT_WITH_MSG, EXW_INTERNAL_ASSERT_NO_MSG))
+    #define EXW_INTERNAL_ASSERT_GET_MACRO_NAME(_arg1, _arg2, _macro, ...)   _macro
+    #define EXW_INTERNAL_ASSERT_GET_MACRO(...)                              EXW_EXPAND(EXW_INTERNAL_ASSERT_GET_MACRO_NAME(__VA_ARGS__, EXW_INTERNAL_ASSERT_WITH_MSG, EXW_INTERNAL_ASSERT_NO_MSG))
     #pragma endregion
 
     // Currently accepts at least the condition and one additional parameter (the message) being optional
     #ifdef EXW_CORE_LIB
-        //#define EXW_ASSERT(...) EXW_EXPAND(EXW_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_CORE_, __VA_ARGS__))
-        #define EXW_ASSERT(...) EXW_EXPAND(EXW_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_, __VA_ARGS__))
+        //#define EXW_ASSERT(...)    EXW_EXPAND(EXW_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_CORE_, __VA_ARGS__))
+        #define EXW_ASSERT(...)     EXW_EXPAND(EXW_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_, __VA_ARGS__))
     #else
-        #define EXW_ASSERT(...) EXW_EXPAND(EXW_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_, __VA_ARGS__))
+        #define EXW_ASSERT(...)     EXW_EXPAND(EXW_INTERNAL_ASSERT_GET_MACRO(__VA_ARGS__)(_, __VA_ARGS__))
     #endif
 #else
-    #define HZ_ASSERT(...)
+    #define EXW_ASSERT(...)
 #endif

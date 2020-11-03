@@ -13,16 +13,19 @@ namespace exw
 
     WindowsWindow::WindowsWindow(const WindowProperties& _properties)
     {
+        EXW_PROFILE_FUNCTION();
         init(_properties);
     }
 
     WindowsWindow::~WindowsWindow()
     {
+        EXW_PROFILE_FUNCTION();
         shutdown();
     }
 
     void WindowsWindow::update()
     {
+        EXW_PROFILE_FUNCTION();
         glfwPollEvents();
         m_Context->swap_buffers();
     }
@@ -34,6 +37,7 @@ namespace exw
 
     void WindowsWindow::set_vsync(bool _enabled)
     {
+        EXW_PROFILE_FUNCTION();
         if (_enabled)
             glfwSwapInterval(1);
         else
@@ -44,6 +48,7 @@ namespace exw
 
     void WindowsWindow::init(const WindowProperties& _properties)
     {
+        EXW_PROFILE_FUNCTION();
         m_Data.title = _properties.title;
         m_Data.width = _properties.width;
         m_Data.height = _properties.height;
@@ -179,6 +184,7 @@ namespace exw
 
     void WindowsWindow::shutdown()
     {
+        EXW_PROFILE_FUNCTION();
         glfwDestroyWindow(m_Window);
         --s_GLFWwindow_count;
 

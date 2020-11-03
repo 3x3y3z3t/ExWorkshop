@@ -12,6 +12,7 @@ namespace exw
 
         void Renderer::init()
         {
+            EXW_PROFILE_FUNCTION();
             RenderCommand::init();
             Renderer2D::init();
         }

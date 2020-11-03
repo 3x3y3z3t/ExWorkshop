@@ -13,6 +13,7 @@ namespace exw
         OpenGLTexture2D::OpenGLTexture2D(uint32_t _width, uint32_t _height)
             : m_Width(_width), m_Height(_height)
         {
+            EXW_PROFILE_FUNCTION();
             m_Internal_format = GL_RGBA8;
             m_Data_format = GL_RGBA;
 
@@ -29,6 +30,7 @@ namespace exw
         OpenGLTexture2D::OpenGLTexture2D(const std::string& _filepath)
             : m_Filepath(_filepath)
         {
+            EXW_PROFILE_FUNCTION();
             int w, h, c;
             stbi_set_flip_vertically_on_load(1);
             stbi_uc* data = stbi_load(_filepath.c_str(), &w, &h, &c, 0);
@@ -69,16 +71,19 @@ namespace exw
 
         OpenGLTexture2D::~OpenGLTexture2D()
         {
+            EXW_PROFILE_FUNCTION();
             glDeleteTextures(1, &m_Renderer_id);
         }
 
         void OpenGLTexture2D::bind(uint32_t _slot) const
         {
+            EXW_PROFILE_FUNCTION();
             glBindTextureUnit(_slot, m_Renderer_id);
         }
 
         void OpenGLTexture2D::set_data(void* _data, uint32_t _size)
         {
+            EXW_PROFILE_FUNCTION();
             uint32_t bpp = m_Data_format == GL_RGBA ? 4 : 3;
             EXW_ASSERT(_size == m_Width * m_Height * bpp, "Partial textured data is not supported.");
             glTextureSubImage2D(m_Renderer_id, 0, 0, 0, m_Width, m_Height, m_Data_format, GL_UNSIGNED_BYTE, _data);

@@ -6,6 +6,7 @@
 #include "exw\utils\Timestep.h"
 #include "exw\utils\Random.h"
 
+
 #include <GLFW\glfw3.h>
 
 namespace exw
@@ -14,6 +15,7 @@ namespace exw
 
     Application::Application(const std::string& _name, uint32_t _width, uint32_t _height)
     {
+        EXW_PROFILE_FUNCTION();
         EXW_ASSERT(s_Instance == nullptr, "Application is currently running.");
         s_Instance = this;
         m_Window = Window::create({ _name, _width, _height });
@@ -28,6 +30,7 @@ namespace exw
 
     Application::~Application()
     {
+        EXW_PROFILE_FUNCTION();
         graphics::Renderer::shutdown();
     }
 
@@ -38,6 +41,7 @@ namespace exw
 
     void Application::on_event(event::Event& _event)
     {
+        EXW_PROFILE_FUNCTION();
         event::EventDispatcher dispatcher(_event);
 
         dispatcher.dispatch<event::WindowCloseEvent>([&] (event::WindowCloseEvent& _evt)
@@ -48,6 +52,7 @@ namespace exw
 
         dispatcher.dispatch<event::WindowResizeEvent>([&] (event::WindowResizeEvent& _evt)
         {
+            EXW_PROFILE_FUNCTION();
             if (_evt.get_width() == 0 || _evt.get_height() == 0)
             {
                 m_Is_minimized = true;
@@ -70,18 +75,21 @@ namespace exw
 
     void Application::push_layer(Layer* _layer)
     {
+        EXW_PROFILE_FUNCTION();
         m_Layer_stack.push_layer(_layer);
         _layer->attach();
     }
 
     void Application::push_overlay(Layer* _overlay)
     {
+        EXW_PROFILE_FUNCTION();
         m_Layer_stack.push_overlay(_overlay);
         _overlay->attach();
     }
 
     void Application::run()
     {
+        EXW_PROFILE_FUNCTION();
         while (m_Is_running)
         {
             float time = (float)(glfwGetTime() * 1000.0);
@@ -91,11 +99,15 @@ namespace exw
 
             if (!m_Is_minimized)
             {
+                EXW_PROFILE_SCOPE("LayerStack update");
                 for (Layer* layer : m_Layer_stack)
                     layer->update(timestep);
             }
 
-            m_Window->update();
-        }   
+            {
+                EXW_PROFILE_SCOPE("Window update");
+                m_Window->update();
+            }
+        }
     }
 }

@@ -60,6 +60,7 @@ namespace exw
 
         void Renderer2D::init()
         {
+            EXW_PROFILE_FUNCTION();
             // init quads;
             {
                 s_Data.QuadVertexBufferHead = new QuadVertex[s_Data.MaxQuadVertices];
@@ -117,6 +118,7 @@ namespace exw
 
         void Renderer2D::shutdown()
         {
+            EXW_PROFILE_FUNCTION();
             delete[] s_Data.QuadVertexBufferHead;
         }
 
@@ -128,6 +130,7 @@ namespace exw
 
         void Renderer2D::begin_scene(const Camera& _camera, const maths::matrix4& _transform)
         {
+            EXW_PROFILE_FUNCTION();
             maths::matrix4 viewProj = _camera.get_projection() * maths::matrix4::inverse(_transform);
 
             s_Data.TextureShader->bind();
@@ -138,6 +141,7 @@ namespace exw
 
         void Renderer2D::begin_scene(const OrthographicCamera& _camera)
         {
+            EXW_PROFILE_FUNCTION();
             s_Data.TextureShader->bind();
             s_Data.TextureShader->set_uniform_mat4x4("u_ViewProjMat", _camera.get_view_proj_matrix());
 
@@ -146,6 +150,7 @@ namespace exw
 
         void Renderer2D::end_scene()
         {
+            EXW_PROFILE_FUNCTION();
             flush();
         }
 
@@ -195,6 +200,7 @@ namespace exw
 
         void Renderer2D::draw_quad(const maths::vector3& _position, const maths::vector2& _size, float _rotation, const maths::vector4& _color)
         {
+            EXW_PROFILE_FUNCTION();
             maths::matrix4 transform;
             if (_rotation == 0.0f)
             {
@@ -228,6 +234,7 @@ namespace exw
 
         void Renderer2D::draw_quad(const maths::vector3& _position, const maths::vector2& _size, float _rotation, const refs::ref<Texture2D>& _texture, float _tilingFactor, const maths::vector4& _tintColor)
         {
+            EXW_PROFILE_FUNCTION();
             maths::matrix4 transform;
             if (_rotation == 0.0f)
             {
@@ -246,6 +253,7 @@ namespace exw
 
         void Renderer2D::draw_quad(const maths::matrix4& _transform, const maths::vector4& _color)
         {
+            EXW_PROFILE_FUNCTION();
             if (s_Data.QuadIndexCount >= Renderer2DData::MaxQuadIndices)
             {
                 next_batch();
@@ -273,6 +281,7 @@ namespace exw
 
         void Renderer2D::draw_quad(const maths::matrix4& _transform, const refs::ref<Texture2D>& _texture, float _tilingFactor, const maths::vector4& _tintColor)
         {
+            EXW_PROFILE_FUNCTION();
             if (s_Data.QuadIndexCount >= Renderer2DData::MaxQuadIndices)
             {
                 next_batch();
