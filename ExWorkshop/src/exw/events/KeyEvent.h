@@ -11,23 +11,23 @@ namespace exw
         class KeyEvent : public Event
         {
         protected:
-            KeyEvent(const Keys _keycode)
+            KeyEvent(const Keys::KeyCode _keycode)
                 : m_Keycode(_keycode)
             {}
 
         public:
             EVENT_CATEGORY_INFO_DEFAULT_IMPL(EventCategoryInput | EventCategoryKeyboard)
 
-            Keys get_keycode() const { return m_Keycode; }
+            Keys::KeyCode get_keycode() const { return m_Keycode; }
 
         protected:
-            Keys m_Keycode;
+            Keys::KeyCode m_Keycode;
         };
 
         class KeyPressedEvent : public KeyEvent
         {
         public:
-            KeyPressedEvent(const Keys _keycode, const uint16_t _repeatCount)
+            KeyPressedEvent(const Keys::KeyCode _keycode, const uint16_t _repeatCount)
                 : KeyEvent(_keycode), m_Repeat_count(_repeatCount)
             {}
 
@@ -50,7 +50,7 @@ namespace exw
         class KeyReleasedEvent : public KeyEvent
         {
         public:
-            KeyReleasedEvent(const Keys _keycode)
+            KeyReleasedEvent(const Keys::KeyCode _keycode)
                 : KeyEvent(_keycode)
             {}
 
@@ -68,7 +68,7 @@ namespace exw
         class KeyTypedEvent : public KeyEvent
         {
         public:
-            KeyTypedEvent(const Keys _keycode)
+            KeyTypedEvent(const Keys::KeyCode _keycode)
                 : KeyEvent(_keycode)
             {}
 

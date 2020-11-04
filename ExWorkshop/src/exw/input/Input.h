@@ -28,18 +28,18 @@ namespace exw
 
     struct InputKey
     {
-        std::variant<Keys, MouseButtons> value;
+        std::variant<Keys::KeyCode, MouseButtons::ButtonCode> value;
 
         InputKey() = default;
-        InputKey(Keys _key) { value = _key; }
-        InputKey(MouseButtons _button) { value = _button; }
+        InputKey(Keys::KeyCode _key) { value = _key; }
+        InputKey(MouseButtons::ButtonCode _button) { value = _button; }
     };
 
     class Input
     {
     public:
-        static bool is_key_pressed(Keys _key);
-        static bool is_mouse_button_pressed(MouseButtons _button);
+        static bool is_key_pressed(Keys::KeyCode _key);
+        static bool is_mouse_button_pressed(MouseButtons::ButtonCode _button);
 
         static vec2 get_cursor_position();
         static float get_cursor_pos_x();
@@ -60,11 +60,11 @@ namespace exw
 
         static bool is_input_pressed(InputKey _input)
         {
-            if (std::holds_alternative<Keys>(_input.value))
-                return is_key_pressed(std::get<Keys>(_input.value));
+            if (std::holds_alternative<Keys::KeyCode>(_input.value))
+                return is_key_pressed(std::get<Keys::KeyCode>(_input.value));
 
-            if (std::holds_alternative<MouseButtons>(_input.value))
-                return is_mouse_button_pressed(std::get<MouseButtons>(_input.value));
+            if (std::holds_alternative<MouseButtons::ButtonCode>(_input.value))
+                return is_mouse_button_pressed(std::get<MouseButtons::ButtonCode>(_input.value));
 
             // control should never fall down here;
             EXW_LOG_WARNING("Unknown Input type!");

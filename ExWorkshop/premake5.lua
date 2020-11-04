@@ -30,6 +30,7 @@ project "ExWorkshop"
 	includedirs
 	{
         "src",
+        "%{IncludeDir.entt}",
         "%{IncludeDir.glfw}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.glad}",

@@ -11,23 +11,23 @@ namespace exw
         class MouseButtonEvent : public Event
         {
         protected:
-            MouseButtonEvent(const MouseButtons _button)
+            MouseButtonEvent(const MouseButtons::ButtonCode _button)
                 : m_Button(_button)
             {}
 
         public:
             EVENT_CATEGORY_INFO_DEFAULT_IMPL(EventCategoryInput | EventCategoryMouse | EventCategoryMouseButton)
 
-            MouseButtons get_button() const { return m_Button; }
+            MouseButtons::ButtonCode get_button() const { return m_Button; }
 
         protected:
-            MouseButtons m_Button;
+            MouseButtons::ButtonCode m_Button;
         };
 
         class MouseButtonPressedEvent : public MouseButtonEvent
         {
         public:
-            MouseButtonPressedEvent(const MouseButtons _button)
+            MouseButtonPressedEvent(const MouseButtons::ButtonCode _button)
                 : MouseButtonEvent(_button)
             {}
 
@@ -45,7 +45,7 @@ namespace exw
         class MouseButtonReleasedEvent : public MouseButtonEvent
         {
         public:
-            MouseButtonReleasedEvent(const MouseButtons _button)
+            MouseButtonReleasedEvent(const MouseButtons::ButtonCode _button)
                 : MouseButtonEvent(_button)
             {}
 

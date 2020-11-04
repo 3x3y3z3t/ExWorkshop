@@ -10,14 +10,14 @@ namespace exw
 {
     std::unordered_map<uint16_t, InputKey> Input::s_Mapping;
 
-    bool Input::is_key_pressed(Keys _key)
+    bool Input::is_key_pressed(Keys::KeyCode _key)
     {
         auto* window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
         auto state = glfwGetKey(window, static_cast<int32_t>(_key));
         return (state == GLFW_PRESS || state == GLFW_REPEAT);
     }
 
-    bool Input::is_mouse_button_pressed(MouseButtons _button)
+    bool Input::is_mouse_button_pressed(MouseButtons::ButtonCode _button)
     {
         auto* window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
         auto state = glfwGetMouseButton(window, static_cast<int32_t>(_button));

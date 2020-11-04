@@ -102,19 +102,19 @@ namespace exw
             {
                 case GLFW_PRESS:
                 {
-                    event::KeyPressedEvent evt(static_cast<Keys>(_key), 0);
+                    event::KeyPressedEvent evt(static_cast<Keys::KeyCode>(_key), 0);
                     data.callback(evt);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
-                    event::KeyReleasedEvent evt(static_cast<Keys>(_key));
+                    event::KeyReleasedEvent evt(static_cast<Keys::KeyCode>(_key));
                     data.callback(evt);
                     break;
                 }
                 case GLFW_REPEAT:
                 {
-                    event::KeyPressedEvent evt(static_cast<Keys>(_key), 1);
+                    event::KeyPressedEvent evt(static_cast<Keys::KeyCode>(_key), 1);
                     data.callback(evt);
                     break;
                 }
@@ -125,7 +125,7 @@ namespace exw
         {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(_window);
 
-            event::KeyTypedEvent evt(static_cast<Keys>(_keycode));
+            event::KeyTypedEvent evt(_keycode);
             data.callback(evt);
         });
 
@@ -137,13 +137,13 @@ namespace exw
             {
                 case GLFW_PRESS:
                 {
-                    event::MouseButtonPressedEvent evt(static_cast<MouseButtons>(_button));
+                    event::MouseButtonPressedEvent evt(static_cast<MouseButtons::ButtonCode>(_button));
                     data.callback(evt);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
-                    event::MouseButtonPressedEvent evt(static_cast<MouseButtons>(_button));
+                    event::MouseButtonPressedEvent evt(static_cast<MouseButtons::ButtonCode>(_button));
                     data.callback(evt);
                     break;
                 }

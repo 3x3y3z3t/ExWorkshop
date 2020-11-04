@@ -4,7 +4,7 @@
 #include "RenderAPI.h"
 #include "VertexArray.h"
 #include "Shader.h"
-#include "exw\graphics\camera\OrthographicCamera.h"
+#include "exw\camera\OrthographicCamera.h"
 
 #include "exw\maths\matrix4.h"
 

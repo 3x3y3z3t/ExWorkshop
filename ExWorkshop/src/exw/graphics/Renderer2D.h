@@ -3,9 +3,9 @@
 
 #include "exw\Common.h"
 
+#include "exw\camera\Camera.h"
+#include "exw\camera\OrthographicCamera.h"
 #include "exw\graphics\Textures.h"
-#include "exw\graphics\camera\Camera.h"
-#include "exw\graphics\camera\OrthographicCamera.h"
 
 #include "exw\maths\vector2.h"
 #include "exw\maths\vector3.h"

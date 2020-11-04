@@ -12,8 +12,8 @@ namespace exw
 {
     namespace maths
     {
-        static float to_radians(float _degrees) { return float(_degrees * 0.01745329251994329576923690768489); }
-        static float to_degrees(float _radians) { return float(_radians * 57.295779513082320876798154814105); }
+        static constexpr float to_radians(float _degrees) { return float(_degrees * 0.01745329251994329576923690768489); }
+        static constexpr float to_degrees(float _radians) { return float(_radians * 57.295779513082320876798154814105); }
 
         static float sin(float _radians) { return glm::sin(_radians); }
         static float cos(float _radians) { return glm::cos(_radians); }
