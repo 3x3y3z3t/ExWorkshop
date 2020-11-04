@@ -1,4 +1,4 @@
-project "Sandbox"
+project "ExToolbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
@@ -16,9 +16,10 @@ project "Sandbox"
 	includedirs
 	{
 		"%{wks.location}/ExWorkshop/src",
-        "%{IncludeDir.spdlog}",
+		"%{IncludeDir.entt}",
+        "%{IncludeDir.imgui}",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.entt}",
+        "%{IncludeDir.spdlog}",
 	}
 
 	links
@@ -43,4 +44,3 @@ project "Sandbox"
 		defines "EXW_DST"
 		runtime "Release"
 		optimize "on"
-		

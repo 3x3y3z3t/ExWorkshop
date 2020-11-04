@@ -2,7 +2,7 @@ include "./vendor/premake/customization/solution_items.lua"
 
 workspace "ExWorkshop"
 	architecture "x86_64"
-	startproject "Sandbox"
+	startproject "ExToolbox"
 
 	configurations
 	{
@@ -25,6 +25,7 @@ workspace "ExWorkshop"
 
     IncludeDir = {}
 	IncludeDir["entt"] = "%{wks.location}/ExWorkshop/vendor/entt"
+	IncludeDir["imgui"] = "%{wks.location}/ExWorkshop/vendor/imgui"
     IncludeDir["glfw"] = "%{wks.location}/ExWorkshop/vendor/glfw/include"
     IncludeDir["glm"] = "%{wks.location}/ExWorkshop/vendor/glm"
     IncludeDir["glad"] = "%{wks.location}/ExWorkshop/vendor/glad/include"
@@ -33,10 +34,12 @@ workspace "ExWorkshop"
 
 group "Dependencies"
 	include "vendor/premake"
+	include "ExWorkshop/vendor/ImGui"
 	include "ExWorkshop/vendor/GLFW"
 	include "ExWorkshop/vendor/Glad"
     
 group ""
     include "ExWorkshop"
+    include "ExToolbox"
     include "Sandbox"
 

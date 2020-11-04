@@ -33,7 +33,7 @@ namespace exw
         {
             EXW_ASSERT(has_component<T>(), "This entity does not have this component.");
             m_Scene->m_Registry.remove<T>(m_Handle);
-            m_Scene->on_component_removed<T>(*this);
+            m_Scene->on_component_removed(*this);
         }
 
         template <typename T>

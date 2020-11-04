@@ -26,9 +26,9 @@ namespace exw
         void update(Timestep _ts);
         void on_viewport_resize(uint32_t _width, uint32_t _height);
     private:
+        void on_component_removed(Entity _entity);
         template <typename T>
         void on_component_added(Entity _entity, T& _component);
-        void on_component_removed(Entity _entity);
 
     public:
         friend class Entity;

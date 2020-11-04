@@ -100,7 +100,10 @@ namespace exw
             }
         }
     }
-    \
+
+    void Scene::on_component_removed(Entity _entity)
+    {}
+
     template<typename T>
     void Scene::on_component_added(Entity _entity, T& _component)
     {

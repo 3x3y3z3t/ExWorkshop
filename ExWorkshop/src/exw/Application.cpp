@@ -3,9 +3,9 @@
 #include "Application.h"
 
 #include "exw\graphics\Renderer.h"
+#include "exw\gui\ImGuiLayer.h"
 #include "exw\utils\Timestep.h"
 #include "exw\utils\Random.h"
-
 
 #include <GLFW\glfw3.h>
 
@@ -24,6 +24,9 @@ namespace exw
         graphics::Renderer::init();
 
         utils::RNG32::init();
+
+        m_Gui_layer = new gui::ImGuiLayer();
+        push_overlay(m_Gui_layer);
 
         m_Is_running = true;
     }
@@ -102,6 +105,15 @@ namespace exw
                 EXW_PROFILE_SCOPE("LayerStack update");
                 for (Layer* layer : m_Layer_stack)
                     layer->update(timestep);
+
+                m_Gui_layer->begin();
+                {
+                    EXW_PROFILE_SCOPE("LayerStack render gui (ImGui)");
+
+                    for (Layer* layer : m_Layer_stack)
+                        layer->render_gui();
+                }
+                m_Gui_layer->end();
             }
 
             {

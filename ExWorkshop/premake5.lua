@@ -32,6 +32,7 @@ project "ExWorkshop"
         "src",
         "%{IncludeDir.entt}",
         "%{IncludeDir.glfw}",
+        "%{IncludeDir.imgui}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.glad}",
         "%{IncludeDir.spdlog}",
@@ -41,7 +42,8 @@ project "ExWorkshop"
 	links
 	{
         "GLFW",
-        "Glad",
+		"Glad",
+		"ImGui",
         "opengl32.lib",
 	}
 
