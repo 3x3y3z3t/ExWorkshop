@@ -30,6 +30,7 @@
 #include "exw\scene\Component.h"
 #include "exw\scene\Entity.h"
 #include "exw\scene\Scene.h"
+#include "exw\scene\ScriptableEntity.h"
 
 #include "exw\utils\Instrumentor.h"
 #include "exw\utils\Log.h"

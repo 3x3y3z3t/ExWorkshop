@@ -3,6 +3,8 @@
 
 namespace sb
 {
+
+
     SbLayer::SbLayer()
         : Layer("sb_layer")
     {}
@@ -17,10 +19,49 @@ namespace sb
         m_Square = m_Active_scene->create_entity("Square");
         m_Square.add_component<exw::SpriteRendererComponent>(exw::maths::vector4 { 0.0f, 1.0f, 1.0f, 1.0f });
         auto& transform = m_Square.get_component<exw::TransformComponent>();
+        transform.Scale = { 0.5f, 2.0f, 1.0f };
 
         m_Camera = m_Active_scene->create_entity("Camera");
         auto& cameraComp = m_Camera.add_component<exw::CameraComponent>(true);
         
+        class CameraController : public exw::ScriptableEntity
+        {
+        public:
+            virtual void create() override
+            {}
+
+            virtual void destroy() override
+            {}
+
+            virtual void update(exw::Timestep _ts) override
+            {
+                auto& translation = get_component<exw::TransformComponent>().Translation;
+                auto& rotation = get_component<exw::TransformComponent>().Rotation;
+
+                float speed = 5.0f * 0.001f;
+
+                if (exw::Input::is_key_pressed(exw::Keys::Q))
+                    rotation.z -= speed * _ts;
+                else if (exw::Input::is_key_pressed(exw::Keys::E))
+                    rotation.z += speed * _ts;
+
+
+                if (exw::Input::is_key_pressed(exw::Keys::A))
+                    translation.x -= speed * _ts;
+                else if (exw::Input::is_key_pressed(exw::Keys::D))
+                    translation.x += speed * _ts;
+                if (exw::Input::is_key_pressed(exw::Keys::W))
+                    translation.y += speed * _ts;
+                else if (exw::Input::is_key_pressed(exw::Keys::S))
+                    translation.y -= speed * _ts;
+            }
+        };
+
+
+        
+
+        m_Camera.add_component<exw::ScriptComponent>().bind<CameraController>();
+
 
     }
 

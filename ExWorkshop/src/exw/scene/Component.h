@@ -2,6 +2,8 @@
 #pragma once
 #include "expch.h"
 
+#include "ScriptableEntity.h"
+
 #include "exw\camera\SceneCamera.h"
 
 #include "exw\maths\matrix4.h"
@@ -25,11 +27,9 @@ namespace exw
         maths::vector3 Translation = { 0.0f, 0.0f, 0.0f };
         maths::vector3 Rotation = { 0.0f, 0.0f, 0.0f };
         maths::vector3 Scale = { 1.0f, 1.0f, 1.0f };
-        maths::matrix4 Transform = { 1.0f };
 
         TransformComponent() = default;
         TransformComponent(const TransformComponent& _component) = default;
-        TransformComponent(const maths::matrix4& _transform) : Transform(_transform) {}
         TransformComponent(const maths::vector3& _translation) : Translation(_translation) {}
 
         maths::matrix4 get_transform() const
@@ -41,9 +41,6 @@ namespace exw
                 * rotation
                 * maths::scale(maths::matrix4(1.0f), Scale);
         }
-
-        //operator maths::matrix4& () { return Transform; }
-        //operator const maths::matrix4& () const { return Transform; }
     };
 
     struct SpriteRendererComponent
@@ -65,4 +62,22 @@ namespace exw
         CameraComponent(const CameraComponent& _component) = default;
         CameraComponent(bool _isPrimary) : IsPrimary(_isPrimary) {}
     };
+
+    struct ScriptComponent
+    {
+        ScriptableEntity* Instance = nullptr;
+
+        ScriptableEntity*(*instantiate_script)();
+        void(*destroy_script)(ScriptComponent*);
+
+        template <typename T>
+        void bind()
+        {
+            instantiate_script = [] () { return static_cast<ScriptableEntity*>(new T()); };
+            destroy_script = [] (ScriptComponent* _component) { delete _component->Instance; _component->Instance = nullptr; };
+        }
+    };
+
+    struct NativeScriptComponent : public ScriptComponent
+    {};
 }

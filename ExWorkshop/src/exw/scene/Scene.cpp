@@ -38,16 +38,18 @@ namespace exw
 
     void Scene::update(Timestep _ts)
     {
-        // destroy dead entity;
-        //{
-        //    m_Registry.view<TagComponent>().each([&] (auto _entity, auto& _component)
-        //    {
-        //        if (_component.Tag == "DeadEntity")
-        //        {
-        //            m_Registry.destroy(_entity);
-        //        }
-        //    });
-        //}
+        // update scripts;
+        m_Registry.view<ScriptComponent>().each([=] (auto _entity, auto& _component)
+        {
+            if (_component.Instance == nullptr)
+            {
+                _component.Instance = _component.instantiate_script();
+                _component.Instance->m_Entity = Entity { _entity, this };
+                _component.Instance->create();
+            }
+
+            _component.Instance->update(_ts);
+        });
 
         // update camera;
         Camera* mainCam = nullptr;
@@ -79,10 +81,7 @@ namespace exw
             }
 
             graphics::Renderer2D::end_scene();
-
-
         }
-
     }
 
     void Scene::on_viewport_resize(uint32_t _width, uint32_t _height)
@@ -128,4 +127,12 @@ namespace exw
     {
         _component.Camera.set_viewport_size(m_Viewport_width, m_Viewport_height);
     }
+
+    template <>
+    void Scene::on_component_added<ScriptComponent>(Entity _entity, ScriptComponent& _component)
+    {}
+
+    template <>
+    void Scene::on_component_added<NativeScriptComponent>(Entity _entity, NativeScriptComponent& _component)
+    {}
 }
