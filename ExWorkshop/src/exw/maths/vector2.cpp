@@ -2,6 +2,9 @@
 #include "expch.h"
 #include "vector2.h"
 
+#include "vector3.h"
+#include "vector4.h"
+
 namespace exw
 {
     namespace maths
@@ -22,15 +25,16 @@ namespace exw
             : x(_vct.x), y(_vct.y)
         {}
 
+        vector2::vector2(const vector3& _vct)
+            : x(_vct.x), y(_vct.y)
+        {}
+
+        vector2::vector2(const vector4& _vct)
+            : x(_vct.x), y(_vct.y)
+        {}
+
         vector2::vector2(const glm::vec2& _raw)
             : raw(_raw)
         {}
-
-        vector2 operator+(const vector2& _vct1, const vector2& _vct2)
-        {
-            return vector2(_vct1.raw + _vct2.raw);
-        }
-
-
     }
 }
