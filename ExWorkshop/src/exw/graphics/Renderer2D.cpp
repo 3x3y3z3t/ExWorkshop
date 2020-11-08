@@ -48,7 +48,7 @@ namespace exw
             std::array<refs::ref<Texture2D>, MaxTextureSlots> TextureSlots;
             uint32_t TextureSlotIndex = 1U;
 
-            exw::maths::vector4 QuadVertexPos[4];
+            maths::vector4 QuadVertexPos[4];
 
             maths::matrix4 ViewProjectionMatrix;
             uint32_t Width = 1280U;
@@ -204,14 +204,14 @@ namespace exw
             maths::matrix4 transform;
             if (_rotation == 0.0f)
             {
-                transform = exw::maths::translate(exw::maths::matrix4(1.0f), _position)
-                    * exw::maths::scale(exw::maths::matrix4(1.0f), { _size.x, _size.y, 1.0f });
+                transform = maths::translate(maths::matrix4(1.0f), _position)
+                    * maths::scale(maths::matrix4(1.0f), { _size.x, _size.y, 1.0f });
             }
             else
             {
-                transform = exw::maths::translate(exw::maths::matrix4(1.0f), _position)
-                    * exw::maths::rotate(exw::maths::matrix4(1.0f), exw::maths::to_radians(_rotation), { 0.0f, 0.0f, 1.0f })
-                    * exw::maths::scale(exw::maths::matrix4(1.0f), { _size.x, _size.y, 1.0f });
+                transform = maths::translate(maths::matrix4(1.0f), _position)
+                    * maths::rotate(maths::matrix4(1.0f), maths::to_radians(_rotation), { 0.0f, 0.0f, 1.0f })
+                    * maths::scale(maths::matrix4(1.0f), { _size.x, _size.y, 1.0f });
             }
 
             draw_quad(transform, _color);
@@ -238,14 +238,14 @@ namespace exw
             maths::matrix4 transform;
             if (_rotation == 0.0f)
             {
-                transform = exw::maths::translate(exw::maths::matrix4(1.0f), _position)
-                    * exw::maths::scale(exw::maths::matrix4(1.0f), { _size.x, _size.y, 1.0f });
+                transform = maths::translate(maths::matrix4(1.0f), _position)
+                    * maths::scale(maths::matrix4(1.0f), { _size.x, _size.y, 1.0f });
             }
             else
             {
-                transform = exw::maths::translate(exw::maths::matrix4(1.0f), _position)
-                    * exw::maths::rotate(exw::maths::matrix4(1.0f), exw::maths::to_radians(_rotation), { 0.0f, 0.0f, 1.0f })
-                    * exw::maths::scale(exw::maths::matrix4(1.0f), { _size.x, _size.y, 1.0f });
+                transform = maths::translate(maths::matrix4(1.0f), _position)
+                    * maths::rotate(maths::matrix4(1.0f), maths::to_radians(_rotation), { 0.0f, 0.0f, 1.0f })
+                    * maths::scale(maths::matrix4(1.0f), { _size.x, _size.y, 1.0f });
             }
 
             draw_quad(transform, _texture, _tilingFactor, _tintColor);
@@ -266,8 +266,7 @@ namespace exw
 
             for (size_t i = 0U; i < quadVertexCount; ++i)
             {
-                auto& pos = _transform * s_Data.QuadVertexPos[i];
-                s_Data.QuadVertexBufferPtr->position = { pos.x, pos.y, pos.z };
+                s_Data.QuadVertexBufferPtr->position = _transform * s_Data.QuadVertexPos[i];
                 s_Data.QuadVertexBufferPtr->color = _color;
                 s_Data.QuadVertexBufferPtr->texcoord = texCoords[i];
                 s_Data.QuadVertexBufferPtr->texid = texId;
@@ -313,8 +312,7 @@ namespace exw
 
             for (size_t i = 0U; i < quadVertexCount; ++i)
             {
-                auto& pos = _transform * s_Data.QuadVertexPos[i];
-                s_Data.QuadVertexBufferPtr->position = { pos.x, pos.y, pos.z };
+                s_Data.QuadVertexBufferPtr->position = _transform * s_Data.QuadVertexPos[i];
                 s_Data.QuadVertexBufferPtr->color = _tintColor;
                 s_Data.QuadVertexBufferPtr->texcoord = texCoords[i];
                 s_Data.QuadVertexBufferPtr->texid = texId;

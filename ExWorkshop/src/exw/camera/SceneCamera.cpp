@@ -52,7 +52,7 @@ namespace exw
         }
         else
         {
-            m_Projection = maths::matrix4(glm::perspective(m_Perspective_fov, m_Aspect_ratio, m_Perspective_near, m_Perspective_far));
+            m_Projection = maths::perspective(m_Perspective_fov, m_Aspect_ratio, m_Perspective_near, m_Perspective_far);
         }
     }
 }

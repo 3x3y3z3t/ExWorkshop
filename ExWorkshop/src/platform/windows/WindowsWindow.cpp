@@ -143,7 +143,7 @@ namespace exw
                 }
                 case GLFW_RELEASE:
                 {
-                    event::MouseButtonPressedEvent evt(static_cast<MouseButtons::ButtonCode>(_button));
+                    event::MouseButtonReleasedEvent evt(static_cast<MouseButtons::ButtonCode>(_button));
                     data.callback(evt);
                     break;
                 }

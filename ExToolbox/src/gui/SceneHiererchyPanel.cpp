@@ -268,17 +268,9 @@ namespace exw
         {
             draw_vector3_control("Translation", _component.Translation);
 
-            maths::vector3 rotation = {
-                maths::to_degrees(_component.Rotation.x),
-                maths::to_degrees(_component.Rotation.y),
-                maths::to_degrees(_component.Rotation.z)
-            };
+            maths::vector3 rotation = maths::to_degrees(_component.Rotation);
             draw_vector3_control("Rotation", rotation);
-            _component.Rotation = {
-                maths::to_radians(rotation.x),
-                maths::to_radians(rotation.y),
-                maths::to_radians(rotation.z)
-            };
+            _component.Rotation = maths::to_radians(rotation);
 
             draw_vector3_control("Scale", _component.Scale, 1.0f);
         });
