@@ -18,6 +18,10 @@ namespace exw
         virtual void render_gui() override;
 
         virtual void on_event(event::Event& _event) override;
+        
+        bool new_scene();
+        bool open_scene();
+        bool save_scene(bool _saveAs = false);
 
     private:
         bool m_Viewport_focused = false;

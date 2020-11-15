@@ -35,6 +35,7 @@
 #include "exw\utils\Instrumentor.h"
 #include "exw\utils\Log.h"
 #include "exw\utils\Random.h"
+#include "exw\utils\PlatformUtils.h"
 
 
 

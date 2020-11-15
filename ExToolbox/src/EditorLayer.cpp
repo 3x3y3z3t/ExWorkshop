@@ -19,7 +19,8 @@ namespace exw
         spec.Height = 900U;
         m_Framebuffer = graphics::Framebuffer::create(spec);
 
-        m_Active_scene = exw::refs::create_ref<exw::Scene>();
+        new_scene();
+        //m_Active_scene = exw::refs::create_ref<exw::Scene>();
 
         m_Square = m_Active_scene->create_entity("Square");
         m_Square.add_component<exw::SpriteRendererComponent>(exw::maths::vector4 { 0.0f, 1.0f, 1.0f, 1.0f });
@@ -28,7 +29,7 @@ namespace exw
         m_Camera = m_Active_scene->create_entity("Camera");
         auto& cameraComp = m_Camera.add_component<exw::CameraComponent>(true);
 
-        m_Scene_hierarchy_panel.set_context(m_Active_scene);
+        //m_Scene_hierarchy_panel.set_context(m_Active_scene);
 
     }
 
@@ -143,25 +144,38 @@ namespace exw
 
             if (ImGui::BeginMenuBar())
             {
-            //	if (ImGui::BeginMenu("File"))
-            //	{
-            //		// Disabling fullscreen would allow the window to be moved to the front of other windows, 
-            //		// which we can't undo at the moment without finer window depth/z control.
-            //		//ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);1
-            //		if (ImGui::MenuItem("New", "Ctrl+N"))
-            //			NewScene();
+                if (ImGui::BeginMenu("File"))
+                {
+                    // Disabling fullscreen would allow the window to be moved to the front of other windows, 
+                    // which we can't undo at the moment without finer window depth/z control.
+                    //ImGui::MenuItem("Fullscreen", NULL, &opt_fullscreen_persistant);1
+                    if (ImGui::MenuItem("New", "Ctrl+N"))
+                    {
+                        new_scene();
+                    }
 
-            //		if (ImGui::MenuItem("Open...", "Ctrl+O"))
-            //			OpenScene();
+                    if (ImGui::MenuItem("Open...", "Ctrl+O"))
+                    {
+                        open_scene();
+                    }
 
-            //		if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
-            //			SaveSceneAs();
+                    if (ImGui::MenuItem("Save", "Ctrl+S"))
+                    {
+                        save_scene(false);
+                    }
+                    if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S"))
+                    {
+                        save_scene(true);
+                    }
 
-            //		if (ImGui::MenuItem("Exit")) Application::Get().Close();
-            //		ImGui::EndMenu();
-            //	}
+                    if (ImGui::MenuItem("Exit", "Alt+F4"))
+                    {
+                        Application::get().close();
+                    }
+                    ImGui::EndMenu();
+                }
 
-            	ImGui::EndMenuBar();
+                ImGui::EndMenuBar();
             }
 
             m_Scene_hierarchy_panel.on_gui_render();
@@ -203,6 +217,41 @@ namespace exw
         using namespace event;
         EventDispatcher dispatcher(_event);
 
+        dispatcher.dispatch<KeyPressedEvent>([&] (KeyPressedEvent& _evt)
+        {
+            if (_evt.get_repeat_count() > 0U)
+            {
+                return false;
+            }
+
+            if (_evt.get_keycode() == Keys::N
+                && (Input::is_key_pressed(Keys::LeftControl) || Input::is_key_pressed(Keys::RightControl)))
+            {
+                new_scene();
+                return true;
+            }
+
+            if ((Input::is_key_pressed(Keys::LeftControl) || Input::is_key_pressed(Keys::RightControl))
+                && _evt.get_keycode() == Keys::O)
+            {
+                open_scene();
+                return true;
+            }
+
+            if ((Input::is_key_pressed(Keys::LeftControl) || Input::is_key_pressed(Keys::RightControl))
+                && _evt.get_keycode() == Keys::S)
+            {
+                save_scene(Input::is_key_pressed(Keys::LeftShift) || Input::is_key_pressed(Keys::RightShift));
+                return true;
+            }
+
+            return false;
+        });
+
+
+
+        // ==========
+
         dispatcher.dispatch<MouseButtonPressedEvent>([&] (MouseButtonPressedEvent& _evt)
         {
             auto& entity = m_Active_scene->create_entity();
@@ -215,5 +264,49 @@ namespace exw
             return true;
         });
 
+    }
+
+    bool EditorLayer::new_scene()
+    {
+        m_Active_scene = refs::create_ref<Scene>();
+        m_Active_scene->on_viewport_resize((uint32_t)m_Viewport_size.x, (uint32_t)m_Viewport_size.y);
+        m_Scene_hierarchy_panel.set_context(m_Active_scene);
+        return true;
+    }
+
+    bool EditorLayer::open_scene()
+    {
+        std::string filepath = utils::FileDialogs::open_file("Exw Scene (*.exs)\0*.exs\0");
+        if (!filepath.empty())
+        {
+            m_Active_scene = refs::create_ref<Scene>();
+            m_Active_scene->on_viewport_resize((uint32_t)m_Viewport_size.x, (uint32_t)m_Viewport_size.y);
+            m_Scene_hierarchy_panel.set_context(m_Active_scene);
+
+            //SceneSerializer serializer(m_Active_scene);
+            //serializer.deserialize(filepath);
+            return true;
+        }
+
+        return false;
+    }
+
+    bool EditorLayer::save_scene(bool _saveAs)
+    {
+        if (_saveAs)
+        {
+            std::string filepath = utils::FileDialogs::save_file("Exw Scene (*.exs)\0*.exs\0");
+            if (!filepath.empty())
+            {
+                //SceneSerializer serializer(m_Active_scene);
+                //serializer.serialize(filepath);
+                return true;
+            }
+
+            return false;
+        }
+
+        EXW_LOG_WARNING("'Save' is currently not supported.");
+        return false;
     }
 }
