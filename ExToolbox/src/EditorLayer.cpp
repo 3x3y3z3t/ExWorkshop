@@ -1,6 +1,8 @@
 // ;
 #include "EditorLayer.h"
 
+#include "exw\scene\SceneSerializer.h"
+
 #include <imgui.h>
 
 namespace exw
@@ -283,11 +285,12 @@ namespace exw
             m_Active_scene->on_viewport_resize((uint32_t)m_Viewport_size.x, (uint32_t)m_Viewport_size.y);
             m_Scene_hierarchy_panel.set_context(m_Active_scene);
 
-            //SceneSerializer serializer(m_Active_scene);
-            //serializer.deserialize(filepath);
+            SceneSerializer serializer(m_Active_scene);
+            serializer.deserialize(filepath);
             return true;
         }
 
+        EXW_LOG_DEBUG("open_scene(): User cancel.");
         return false;
     }
 
@@ -298,11 +301,12 @@ namespace exw
             std::string filepath = utils::FileDialogs::save_file("Exw Scene (*.exs)\0*.exs\0");
             if (!filepath.empty())
             {
-                //SceneSerializer serializer(m_Active_scene);
-                //serializer.serialize(filepath);
+                SceneSerializer serializer(m_Active_scene);
+                serializer.serialize(filepath);
                 return true;
             }
 
+            EXW_LOG_DEBUG("save_scene(): User cancel.");
             return false;
         }
 

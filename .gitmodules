@@ -11,3 +11,6 @@
 	path = ExWorkshop\\vendor\\imgui
 	url = https://github.com/3x3y3z3t/imgui
     branch = docking
+[submodule "ExWorkshop\\vendor\\yaml_cpp"]
+	path = ExWorkshop\\vendor\\yaml_cpp
+	url = https://github.com/3x3y3z3t/yaml-cpp

@@ -37,6 +37,7 @@ project "ExWorkshop"
         "%{IncludeDir.glad}",
         "%{IncludeDir.spdlog}",
 		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links
@@ -44,6 +45,7 @@ project "ExWorkshop"
         "GLFW",
 		"Glad",
 		"ImGui",
+		"yaml-cpp",
         "opengl32.lib",
 	}
 
