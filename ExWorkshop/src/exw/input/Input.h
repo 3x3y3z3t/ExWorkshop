@@ -6,14 +6,10 @@
 #include "KeyCodes.h"
 #include "MouseButtonCodes.h"
 
+#include "exw\maths\vector2.h"
+
 namespace exw
 {
-    struct vec2
-    {
-        float x;
-        float y;
-    };
-
     /* Hold the name for an input to be mapped. */
     using InputName = uint16_t;
     enum : InputName
@@ -41,7 +37,7 @@ namespace exw
         static bool is_key_pressed(Keys::KeyCode _key);
         static bool is_mouse_button_pressed(MouseButtons::ButtonCode _button);
 
-        static vec2 get_cursor_position();
+        static maths::vector2 get_cursor_position();
         static float get_cursor_pos_x();
         static float get_cursor_pos_y();
 

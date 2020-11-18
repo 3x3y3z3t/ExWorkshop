@@ -12,7 +12,7 @@ namespace exw::maths
 {
     namespace
     {
-        constexpr float Pi = 3.1415926535897932;
+        constexpr float Pi = (float)3.1415926535897932;
         constexpr float Pi_over_180d = Pi / 180.0f;
         constexpr float Pi_divides_180d = 180.0f / Pi;
 

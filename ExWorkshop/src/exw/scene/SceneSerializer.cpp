@@ -121,10 +121,10 @@ namespace exw
         return _out;
     }
 
-    static void serialize_entity(YAML::Emitter& _emitter, Entity _entity)
+    static void serialize_entity(YAML::Emitter& _emitter, const Entity& _entity)
     {
         _emitter << YAML::BeginMap;
-        _emitter << YAML::Key << "Entity" << YAML::Value << (uint32_t)_entity;
+        _emitter << YAML::Key << "Entity" << YAML::Value << _entity.get_id();
 
         if (_entity.has_component<TagComponent>())
         {

@@ -13,6 +13,7 @@ namespace exw
 
     void SceneCamera::set_viewport_size(uint32_t _width, uint32_t _height)
     {
+        m_Orthographic_size = (float)((_width < _height) ? _width : _height);
         float aspectRatio = (float)_width / (float)_height;
         //if (aspectRatio != m_Aspect_ratio)
         {

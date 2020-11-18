@@ -19,8 +19,8 @@ namespace exw
 
         void set_context(const refs::ref<Scene>& _context);
     private:
-        void draw_entity_node(Entity _entity);
-        void draw_components(Entity _entity);
+        void draw_entity_node(const Entity& _entity);
+        void draw_components(const Entity& _entity);
 
     private:
         refs::ref<Scene> m_Context;

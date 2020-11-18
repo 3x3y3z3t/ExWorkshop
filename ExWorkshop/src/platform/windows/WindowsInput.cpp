@@ -24,7 +24,7 @@ namespace exw
         return (state == GLFW_PRESS);
     }
 
-    vec2 Input::get_cursor_position()
+    maths::vector2 Input::get_cursor_position()
     {
         auto* window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
         double x, y;

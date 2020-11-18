@@ -179,7 +179,7 @@ namespace exw
         m_Selection_context = {};
     }
 
-    void SceneHierarchyPanel::draw_entity_node(Entity _entity)
+    void SceneHierarchyPanel::draw_entity_node(const Entity& _entity)
     {
         auto& tag = _entity.get_component<TagComponent>().Tag;
 
@@ -189,7 +189,7 @@ namespace exw
             | ImGuiTreeNodeFlags_SpanAvailWidth;
 
         bool entityDeleted = false;
-        if (ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)_entity, flags, tag.c_str()))
+        if (ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)_entity, flags, "%s %d", tag.c_str(), _entity.get_id()))
         {
             if (ImGui::IsItemClicked())
             {
@@ -221,7 +221,7 @@ namespace exw
         }
     }
 
-    void SceneHierarchyPanel::draw_components(Entity _entity)
+    void SceneHierarchyPanel::draw_components(const Entity& _entity)
     {
         if (_entity.has_component<TagComponent>())
         {
@@ -229,8 +229,7 @@ namespace exw
 
             char buffer[256];
             memset(buffer, 0, sizeof(buffer));
-            //strcpy_s(buffer, sizeof(buffer), tag.c_str());
-            std::strncpy(buffer, tag.c_str(), sizeof(buffer));
+            strncpy_s(buffer, tag.c_str(), sizeof(buffer));
             if (ImGui::InputText("##Tag", buffer, sizeof(buffer)))
             {
                 tag = std::string(buffer);
@@ -250,13 +249,27 @@ namespace exw
         {
             if (ImGui::MenuItem("Camera"))
             {
-                m_Selection_context.add_component<CameraComponent>();
+                if (!m_Selection_context.has_component<CameraComponent>())
+                {
+                    m_Selection_context.add_component<CameraComponent>();
+                }
+                else
+                {
+                    EXW_LOG_WARNING("Cannot add CameraComponent that this entity already has.");
+                }
                 ImGui::CloseCurrentPopup();
             }
 
             if (ImGui::MenuItem("Sprite Renderer"))
             {
-                m_Selection_context.add_component<SpriteRendererComponent>();
+                if (!m_Selection_context.has_component<SpriteRendererComponent>())
+                {
+                    m_Selection_context.add_component<SpriteRendererComponent>();
+                }
+                else
+                {
+                    EXW_LOG_WARNING("Cannot add SpriteRendererComponent that this entity already has.");
+                }
                 ImGui::CloseCurrentPopup();
             }
 

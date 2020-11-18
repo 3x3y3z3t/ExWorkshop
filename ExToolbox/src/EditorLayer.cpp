@@ -1,4 +1,4 @@
-// ;
+﻿// ;
 #include "EditorLayer.h"
 
 #include "exw\scene\SceneSerializer.h"
@@ -54,7 +54,14 @@ namespace exw
                 m_Framebuffer->resize((uint32_t)m_Viewport_size.x, (uint32_t)m_Viewport_size.y);
                 //m_Camera_controller.resize(m_Viewport_size.x, m_Viewport_size.y);
                 m_Active_scene->on_viewport_resize((uint32_t)m_Viewport_size.x, (uint32_t)m_Viewport_size.y);
+                //m_Camera.get_component<CameraComponent>().Camera.set_orthographic_size((spec.Width < spec.Height) ? spec.Width : spec.Height);
+                // TODO: it seems that +3px is still good...;
             }
+
+
+
+
+
         }
 
         // logic update;
@@ -63,6 +70,36 @@ namespace exw
             if (m_Viewport_focused)
             {
                 //m_Camera_controller.on_update(_ts);
+            }
+
+
+
+            if (Input::is_mouse_button_pressed(MouseButtons::Btn_Left))
+            {
+                if (m_Viewport_focused)
+                {
+                    auto viewportHalfSize = m_Viewport_size * 0.5f;
+                    //if (m_Camera)
+                    //{
+                    //    if (m_Camera.has_component<TransformComponent>())
+                    //    {
+                    //        auto& cameraPos = m_Camera.get_component<TransformComponent>().Translation;
+                    //    }
+                    //}
+
+                    maths::vector2 cursorWorldPosition = {
+                        (m_Cursor_position_over_viewport.x - viewportHalfSize.x),
+                        -(m_Cursor_position_over_viewport.y - viewportHalfSize.y)
+                    };
+
+                    auto& entity = m_Active_scene->create_entity();
+                    entity.add_component<SpriteRendererComponent>(maths::vector4 { 1.0f, 1.0f, 0.0f, 1.0f });
+
+                    auto& transform = entity.get_component<TransformComponent>();
+                    transform.Translation = cursorWorldPosition;
+                    //transform.Scale = { 3.0f, 3.0f, 1.0f };
+                }
+
             }
 
         }
@@ -161,6 +198,7 @@ namespace exw
                         open_scene();
                     }
 
+                    ImGui::Separator();
                     if (ImGui::MenuItem("Save", "Ctrl+S"))
                     {
                         save_scene(false);
@@ -170,6 +208,7 @@ namespace exw
                         save_scene(true);
                     }
 
+                    ImGui::Separator();
                     if (ImGui::MenuItem("Exit", "Alt+F4"))
                     {
                         Application::get().close();
@@ -190,20 +229,32 @@ namespace exw
                 ImGui::Text("Quads: %d", stats.QuadCount);
                 ImGui::Text("Vertices: %d", stats.get_vertex_count());
                 ImGui::Text("Indices: %d", stats.get_index_count());
+
+                ImGui::Separator();
+                ImGui::Text("Viewport size = (%d, %d)", (int)m_Viewport_size.x, (int)m_Viewport_size.y);
+
             }
             ImGui::End();
 
             ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2 { 0, 0 });
             ImGui::Begin("Viewport");
             {
+                auto wpos = ImGui::GetCursorScreenPos();
+                auto cpos = ImGui::GetMousePos();
+                m_Cursor_position_over_viewport.x = cpos.x - wpos.x;
+                m_Cursor_position_over_viewport.y = cpos.y - wpos.y;
+
                 m_Viewport_focused = ImGui::IsWindowFocused();
                 m_Viewport_hovered = ImGui::IsWindowHovered();
                 Application::get().get_gui_layer()->block_events(!m_Viewport_focused || !m_Viewport_hovered);
 
                 ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
                 m_Viewport_size = { viewportPanelSize.x, viewportPanelSize.y };
+                
+                auto& windowPos = ImGui::GetWindowPos();
+                m_Viewport_position = { windowPos.x, windowPos.y };
 
-                uint64_t textureID = m_Framebuffer->get_color_attachment_renderer_id();
+                uint32_t textureID = m_Framebuffer->get_color_attachment_renderer_id();
                 ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2 { m_Viewport_size.x, m_Viewport_size.y }, ImVec2 { 0, 1 }, ImVec2 { 1, 0 });
             }
             ImGui::End();
@@ -254,15 +305,34 @@ namespace exw
 
         // ==========
 
-        dispatcher.dispatch<MouseButtonPressedEvent>([&] (MouseButtonPressedEvent& _evt)
+        dispatcher.dispatch<MouseButtonPressedEvent>([this] (MouseButtonPressedEvent& _evt)
         {
-            auto& entity = m_Active_scene->create_entity();
-            entity.add_component<SpriteRendererComponent>(maths::vector4 { 1.0f, 1.0f, 0.0f, 1.0f });
+            //auto viewportHalfSize = m_Viewport_size * 0.5f;
+            //if (m_Camera)
+            //{
+            //    auto& cameraPos = m_Camera.get_component<TransformComponent>().Translation;
+            //}
 
-            vec2 cpos = Input::get_cursor_position();
-            auto& transform = entity.get_component<TransformComponent>();
-            transform.Translation = { cpos.x, cpos.y, 0.0f };
 
+            //maths::vector2 cursorWorldPosition = {
+            //    (m_Cursor_position_over_viewport.x - viewportHalfSize.x),
+            //    -(m_Cursor_position_over_viewport.y - viewportHalfSize.y)
+            //};
+
+            //auto& entity = m_Active_scene->create_entity();
+            //entity.add_component<SpriteRendererComponent>(maths::vector4 { 1.0f, 1.0f, 0.0f, 1.0f });
+
+            //auto& transform = entity.get_component<TransformComponent>();
+            //transform.Translation = cursorWorldPosition;
+            //transform.Scale = { 3.0f, 3.0f, 1.0f };
+
+            
+
+
+
+
+
+                
             return true;
         });
 
@@ -282,11 +352,12 @@ namespace exw
         if (!filepath.empty())
         {
             m_Active_scene = refs::create_ref<Scene>();
+            SceneSerializer serializer(m_Active_scene);
+            serializer.deserialize(filepath);
+
             m_Active_scene->on_viewport_resize((uint32_t)m_Viewport_size.x, (uint32_t)m_Viewport_size.y);
             m_Scene_hierarchy_panel.set_context(m_Active_scene);
 
-            SceneSerializer serializer(m_Active_scene);
-            serializer.deserialize(filepath);
             return true;
         }
 

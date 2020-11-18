@@ -37,17 +37,19 @@ namespace exw
         }
 
         template <typename T>
-        T& get_component()
+        T& get_component() const
         {
             EXW_ASSERT(has_component<T>(), "This entity does not have this component.");
             return m_Scene->m_Registry.get<T>(m_Handle);
         }
 
         template <typename T>
-        bool has_component()
+        bool has_component() const
         {
             return m_Scene->m_Registry.has<T>(m_Handle);
         }
+
+        uint32_t get_id() const { return (uint32_t)m_Handle; }
 
         operator bool() const { return m_Handle != entt::null; }
         operator entt::entity() const { return m_Handle; }

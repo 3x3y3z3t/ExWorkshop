@@ -26,7 +26,11 @@ namespace exw
     private:
         bool m_Viewport_focused = false;
         bool m_Viewport_hovered = false;
+        maths::vector2 m_Viewport_position = { 0.0f, 0.0f };
         maths::vector2 m_Viewport_size = { 0.0f, 0.0f };
+
+    //public:
+        maths::vector2 m_Cursor_position_over_viewport = { 0.0f, 0.0f };
 
         refs::ref<graphics::Framebuffer> m_Framebuffer;
 
