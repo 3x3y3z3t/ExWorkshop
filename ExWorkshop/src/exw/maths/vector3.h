@@ -42,6 +42,8 @@ namespace exw
 
             bool operator== (const vector3& _other) { return raw == _other.raw; }
             bool operator!= (const vector3& _other) { return !(*this == _other); }
+            bool operator== (const vector4& _other);
+            bool operator!= (const vector4& _other) { return !(*this == _other); }
 
 
             friend vector3 operator+(const vector3& _vct1, const vector3& _vct2) { return vector3(_vct1.raw + _vct2.raw); }
@@ -61,6 +63,8 @@ namespace exw
 
             friend bool operator==(const vector3& _vct1, const vector3& _vct2) { return _vct1.raw == _vct2.raw; }
             friend bool operator!=(const vector3& _vct1, const vector3& _vct2) { return !(_vct1 == _vct2); }
+            friend bool operator==(const vector3& _vct1, const vector4& _vct2);
+            friend bool operator!=(const vector3& _vct1, const vector4& _vct2) { return !(_vct1 == _vct2); }
 
             std::string to_string(bool _longString = false) const
             {

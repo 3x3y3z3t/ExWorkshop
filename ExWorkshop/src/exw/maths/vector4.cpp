@@ -36,5 +36,15 @@ namespace exw
         vector4::vector4(const glm::vec4& _raw)
             : raw(_raw)
         {}
+
+        bool vector4::operator==(const vector3& _other)
+        {
+            return (this->x == _other.x && this->y == _other.y && this->z == _other.z);
+        }
+
+        bool operator==(const vector4& _vct1, const vector3& _vct2)
+        {
+            return (_vct1.x == _vct2.x && _vct1.y == _vct2.y && _vct1.z == _vct2.z);
+        }
     }
 }
