@@ -250,7 +250,7 @@ namespace exw
                         name = component["Tag"].as<std::string>();
                     }
                 }
-                EXW_LOG_TRACE("Deserialized entity {0} > {1}", uuid, name);
+                //EXW_LOG_TRACE("Deserialized entity {0} > {1}", uuid, name);
 
                 Entity deserializedEntity = m_Scene->create_entity(name);
 

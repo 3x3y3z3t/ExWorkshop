@@ -10,15 +10,15 @@ namespace exw
     {
         class KeyEvent : public Event
         {
-        protected:
-            KeyEvent(const Keys::KeyCode _keycode)
-                : m_Keycode(_keycode)
-            {}
-
         public:
             EVENT_CATEGORY_INFO_DEFAULT_IMPL(EventCategoryInput | EventCategoryKeyboard)
 
             Keys::KeyCode get_keycode() const { return m_Keycode; }
+
+        protected:
+            KeyEvent(const Keys::KeyCode _keycode)
+                : m_Keycode(_keycode)
+            {}
 
         protected:
             Keys::KeyCode m_Keycode;

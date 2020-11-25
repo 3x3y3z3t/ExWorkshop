@@ -10,15 +10,15 @@ namespace exw
     {
         class MouseButtonEvent : public Event
         {
-        protected:
-            MouseButtonEvent(const MouseButtons::ButtonCode _button)
-                : m_Button(_button)
-            {}
-
         public:
             EVENT_CATEGORY_INFO_DEFAULT_IMPL(EventCategoryInput | EventCategoryMouse | EventCategoryMouseButton)
 
             MouseButtons::ButtonCode get_button() const { return m_Button; }
+
+        protected:
+            MouseButtonEvent(const MouseButtons::ButtonCode _button)
+                : m_Button(_button)
+            {}
 
         protected:
             MouseButtons::ButtonCode m_Button;

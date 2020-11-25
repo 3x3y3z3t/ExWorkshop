@@ -188,25 +188,27 @@ namespace exw
             | ImGuiTreeNodeFlags_OpenOnArrow
             | ImGuiTreeNodeFlags_SpanAvailWidth;
 
-        bool entityDeleted = false;
-        if (ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)_entity, flags, "%s %d", tag.c_str(), _entity.get_id()))
+        bool treeOpened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)_entity, flags, "%s %d", tag.c_str(), _entity.get_id());
+        if (ImGui::IsItemClicked())
         {
-            if (ImGui::IsItemClicked())
-            {
-                m_Selection_context = _entity;
-            }
+            m_Selection_context = _entity;
+        }
 
-            if (ImGui::BeginPopupContextItem())
+        bool entityDeleted = false;
+        if (ImGui::BeginPopupContextItem())
+        {
+            if (ImGui::MenuItem("Delete Entity"))
             {
-                if (ImGui::MenuItem("Delete Entity"))
-                {
-                    entityDeleted = true;
-                }
-                ImGui::EndPopup();
+                entityDeleted = true;
             }
+            ImGui::EndPopup();
+        }
 
+        if (treeOpened)
+        {
             ImGuiTreeNodeFlags flags2 = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-            if (ImGui::TreeNodeEx((void*)9817239, flags2, tag.c_str()))
+            bool opened = ImGui::TreeNodeEx((void*)9817239, flags2, tag.c_str());
+            if (opened)
             {
                 ImGui::TreePop();
             }

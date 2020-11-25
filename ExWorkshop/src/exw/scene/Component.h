@@ -13,6 +13,7 @@
 
 namespace exw
 {
+
     struct TagComponent
     {
         std::string Tag;
@@ -32,15 +33,43 @@ namespace exw
         TransformComponent(const TransformComponent& _component) = default;
         TransformComponent(const maths::vector3& _translation) : Translation(_translation) {}
 
-        maths::matrix4 get_transform() const
+        const maths::matrix4& get_transform()
         {
-            maths::matrix4 rotation = maths::rotate(maths::matrix4(1.0f), Rotation.x, { 1.0f, 0.0f, 0.0f })
-                * maths::rotate(maths::matrix4(1.0f), Rotation.y, { 0.0f, 1.0f, 0.0f })
-                * maths::rotate(maths::matrix4(1.0f), Rotation.z, { 0.0f, 0.0f, 1.0f });
-            return maths::translate(maths::matrix4(1.0f), Translation)
-                * rotation
-                * maths::scale(maths::matrix4(1.0f), Scale);
+            bool isDirty = false;
+
+            if (Translation != m_Transform[3])
+            {
+                isDirty = true;
+            }
+            if (Rotation != m_Rotation_previous)
+            {
+                isDirty = true;
+                m_Rotation_previous = Rotation;
+            }
+            if (Scale != m_Scale_previous)
+            {
+                isDirty = true;
+                m_Scale_previous = Scale;
+            }
+
+            if (isDirty)
+            {
+                //EXW_LOG_TRACE("Component is dirty, recalculating Transformation matrix...");
+                // recalculate transformation matrix;
+                m_Transform = maths::translate(maths::matrix4(1.0f), Translation)
+                    * maths::rotate(maths::matrix4(1.0f), ((maths::vector3)Rotation).x, { 1.0f, 0.0f, 0.0f })
+                    * maths::rotate(maths::matrix4(1.0f), ((maths::vector3)Rotation).y, { 0.0f, 1.0f, 0.0f })
+                    * maths::rotate(maths::matrix4(1.0f), ((maths::vector3)Rotation).z, { 0.0f, 0.0f, 1.0f })
+                    * maths::scale(maths::matrix4(1.0f), Scale);
+            }
+
+            return m_Transform;
         }
+
+        private:
+            maths::vector3 m_Rotation_previous = { 0.0f, 0.0f, 0.0f };
+            maths::vector3 m_Scale_previous = { 0.0f, 0.0f, 0.0f };
+            maths::matrix4 m_Transform = maths::matrix4();
     };
 
     struct SpriteRendererComponent

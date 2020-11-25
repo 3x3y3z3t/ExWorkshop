@@ -100,23 +100,28 @@ namespace exw
             m_Last_frametime = time;
             //EXW_LOG_DEBUG("frametime = {0}", timestep);
 
+            // update;
             if (!m_Is_minimized)
             {
                 EXW_PROFILE_SCOPE("LayerStack update");
                 for (Layer* layer : m_Layer_stack)
                     layer->update(timestep);
-
-                m_Gui_layer->begin();
-                {
-                    EXW_PROFILE_SCOPE("LayerStack render gui (ImGui)");
-
-                    for (Layer* layer : m_Layer_stack)
-                        layer->render_gui();
-                }
-                m_Gui_layer->end();
             }
 
+            // render;
             {
+                if (!m_Is_minimized)
+                {
+                    m_Gui_layer->begin();
+                    {
+                        EXW_PROFILE_SCOPE("LayerStack render gui (ImGui)");
+
+                        for (Layer* layer : m_Layer_stack)
+                            layer->render_gui();
+                    }
+                    m_Gui_layer->end();
+                }
+
                 EXW_PROFILE_SCOPE("Window update");
                 m_Window->update();
             }
