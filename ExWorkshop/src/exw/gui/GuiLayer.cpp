@@ -1,6 +1,6 @@
 // ;
 #include "expch.h"
-#include "GuiLayer.h"
+#include "exw\gui\GuiLayer.h"
 
 namespace exw
 {

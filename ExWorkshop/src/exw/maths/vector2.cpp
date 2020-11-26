@@ -1,9 +1,9 @@
 // ;
 #include "expch.h"
-#include "vector2.h"
+#include "exw\maths\vector2.h"
 
-#include "vector3.h"
-#include "vector4.h"
+#include "exw\maths\vector3.h"
+#include "exw\maths\vector4.h"
 
 namespace exw
 {

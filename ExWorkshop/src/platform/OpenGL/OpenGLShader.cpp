@@ -163,13 +163,13 @@ namespace exw
                 }
                 else
                 {
-                    EXW_LOG_ERROR("File read failure: {1}", _filepath);
+                    EXW_LOG_ERROR("OpenGLShaader::read_source_from_file(): File read failure: {0}", _filepath);
                     //EXW_ASSERT(false, "");
                 }
             }
             else
             {
-                EXW_LOG_ERROR("File open failure: {1}", _filepath);
+                EXW_LOG_ERROR("OpenGLShaader::read_source_from_file(): File open failure: {0}", _filepath);
                 //EXW_ASSERT(false, "");
             }
 

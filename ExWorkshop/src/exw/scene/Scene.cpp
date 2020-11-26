@@ -1,9 +1,9 @@
 // ;
 #include "expch.h"
-#include "Scene.h"
+#include "exw\scene\Scene.h"
 
-#include "Entity.h"
-#include "Component.h"
+#include "exw\scene\Entity.h"
+#include "exw\scene\Component.h"
 #include "exw\graphics\Renderer2D.h"
 #include "exw\maths\matrix4.h"
 #include "exw\maths\math_utils.h"

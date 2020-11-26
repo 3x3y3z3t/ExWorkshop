@@ -1,6 +1,6 @@
 // ;
 #include "expch.h"
-#include "GraphicsContext.h"
+#include "exw\graphics\GraphicsContext.h"
 
 #include "exw\graphics\RenderAPI.h"
 

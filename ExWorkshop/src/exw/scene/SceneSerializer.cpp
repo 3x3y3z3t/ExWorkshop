@@ -1,9 +1,9 @@
 // ;
 #include "expch.h"
-#include "SceneSerializer.h"
+#include "exw\scene\SceneSerializer.h"
 
-#include "Entity.h"
-#include "Component.h"
+#include "exw\scene\Entity.h"
+#include "exw\scene\Component.h"
 
 #include "exw\maths\vector2.h"
 #include "exw\maths\vector3.h"

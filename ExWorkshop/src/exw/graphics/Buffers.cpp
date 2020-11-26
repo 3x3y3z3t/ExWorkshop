@@ -1,8 +1,8 @@
 // ;
 #include "expch.h"
-#include "Buffers.h"
+#include "exw\graphics\Buffers.h"
 
-#include "RenderAPI.h"
+#include "exw\graphics\RenderAPI.h"
 
 #include "platform\OpenGL\OpenGLBuffers.h"
 

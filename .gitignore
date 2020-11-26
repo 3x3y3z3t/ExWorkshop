@@ -1,13 +1,11 @@
 
 .vs/
-**/bin/
-**/bin_int/
-**/chessu
+bin/
+build/
+lib/
+obj/
+**/chessu/
 
-**.sln
-**.vcxproj
-**.vcxproj.filters
-**.vcxproj.user
 *.exe
 *.json
 *.log

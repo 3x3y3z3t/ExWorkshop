@@ -1,11 +1,11 @@
 // ;
 #include "expch.h"
-#include "Renderer2D.h"
+#include "exw\graphics\Renderer2D.h"
 
-#include "Renderer.h"
-#include "Shader.h"
-#include "VertexArray.h"
-#include "Buffers.h"
+#include "exw\graphics\Renderer.h"
+#include "exw\graphics\Shader.h"
+#include "exw\graphics\VertexArray.h"
+#include "exw\graphics\Buffers.h"
 
 #include "exw\maths\math_utils.h"
 #include "exw\maths\vector2.h"
@@ -104,7 +104,7 @@ namespace exw
                 //uint32_t data = 0x00000000U;
                 s_Data.WhiteTexture->set_data(&data, sizeof(uint32_t));
 
-                s_Data.TextureShader = Shader::create("res/shaders/texture.glsl");
+                s_Data.TextureShader = Shader::create("shaders/texture.glsl");
                 s_Data.TextureShader->bind();
                 s_Data.TextureShader->set_uniform_int_arr("u_Textures", samplers, s_Data.MaxTextureSlots);
                 s_Data.TextureSlots[0] = s_Data.WhiteTexture;
@@ -135,15 +135,6 @@ namespace exw
 
             s_Data.TextureShader->bind();
             s_Data.TextureShader->set_uniform_mat4x4("u_ViewProjMat", viewProj);
-
-            start_batch();
-        }
-
-        void Renderer2D::begin_scene(const OrthographicCamera& _camera)
-        {
-            EXW_PROFILE_FUNCTION();
-            s_Data.TextureShader->bind();
-            s_Data.TextureShader->set_uniform_mat4x4("u_ViewProjMat", _camera.get_view_proj_matrix());
 
             start_batch();
         }

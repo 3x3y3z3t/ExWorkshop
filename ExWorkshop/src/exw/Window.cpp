@@ -1,6 +1,6 @@
 // ;
 #include "expch.h"
-#include "Window.h"
+#include "exw\Window.h"
 
 #ifdef EXW_PLATFORM_WINDOWS
 #include "platform\windows\WindowsWindow.h"

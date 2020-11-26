@@ -1,8 +1,8 @@
 // ;
 #include "expch.h"
-#include "Renderer.h"
+#include "exw\graphics\Renderer.h"
 
-#include "Renderer2D.h"
+#include "exw\graphics\Renderer2D.h"
 
 namespace exw
 {
@@ -20,11 +20,6 @@ namespace exw
         void Renderer::shutdown()
         {
             Renderer2D::shutdown();
-        }
-
-        void Renderer::begin_scene(OrthographicCamera& _camera)
-        {
-            s_Scene_data->ViewProjectionMatrix = _camera.get_view_proj_matrix();
         }
 
         void Renderer::end_scene()

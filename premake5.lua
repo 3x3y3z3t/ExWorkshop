@@ -1,47 +1,30 @@
-include "./vendor/premake/customization/solution_items.lua"
+--
+require("scripts/premake/customizations")
+require("scripts/premake/defaults")
+require("scripts/premake/options")
+require("scripts/premake/settings")
+require("scripts/premake/target")
+require("scripts/premake/utils")
 
-workspace "ExWorkshop"
-	architecture "x86_64"
-	startproject "ExToolbox"
+require("scripts/premake/library")
 
-	configurations
-	{
-		"Debug",
-		"Release",
-		"Dist"
-	}
+require("scripts/premake/app")
 
-	solution_items
-	{
-		".editorconfig"
-	}
+workspace(settings.workspace_name)
+platforms(utils.get_platforms())
+configurations({ "Debug", "Release" })
 
-	flags
-	{
-		"MultiProcessorCompile"
-	}
+third_party_library("glad")
+third_party_library("glfw")
+third_party_library("imgui")
+third_party_library("yaml-cpp")
 
-    outputdir = "%{cfg.buildcfg}_%{cfg.system}_%{cfg.architecture}"
+third_party_library("openal-soft")
 
-    IncludeDir = {}
-	IncludeDir["entt"] = "%{wks.location}/ExWorkshop/vendor/entt"
-	IncludeDir["imgui"] = "%{wks.location}/ExWorkshop/vendor/imgui"
-    IncludeDir["glfw"] = "%{wks.location}/ExWorkshop/vendor/glfw/include"
-    IncludeDir["glm"] = "%{wks.location}/ExWorkshop/vendor/glm"
-    IncludeDir["glad"] = "%{wks.location}/ExWorkshop/vendor/glad/include"
-    IncludeDir["spdlog"] = "%{wks.location}/ExWorkshop/vendor/spdlog/include"
-	IncludeDir["stb_image"] = "%{wks.location}/ExWorkshop/vendor/stb_image"
-    IncludeDir["yaml_cpp"] = "%{wks.location}/ExWorkshop/vendor/yaml_cpp/include"
+library("ExWorkshop")
+app("ExToolbox")
+app("Sandbox")
 
-group "Dependencies"
-	include "vendor/premake"
-	include "ExWorkshop/vendor/ImGui"
-	include "ExWorkshop/vendor/GLFW"
-	include "ExWorkshop/vendor/Glad"
-	include "ExWorkshop/vendor/yaml_cpp"
-    
-group ""
-    include "ExWorkshop"
-    include "ExToolbox"
-    include "Sandbox"
-
+-- Set last app as startup
+workspace(settings.workspace_name)
+startproject(apps["ExToolbox"])

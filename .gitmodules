@@ -1,16 +1,29 @@
-[submodule "ExWorkshop\\vendor\\glfw"]
-	path = ExWorkshop\\vendor\\glfw
-	url = https://github.com/3x3y3z3t/glfw
-[submodule "ExWorkshop\\vendor\\spdlog"]
-	path = ExWorkshop\\vendor\\spdlog
-	url = https://github.com/3x3y3z3t/spdlog
-[submodule "ExWorkshop\\vendor\\glm"]
-	path = ExWorkshop\\vendor\\glm
-	url = https://github.com/3x3y3z3t/glm
-[submodule "ExWorkshop\\vendor\\imgui"]
-	path = ExWorkshop\\vendor\\imgui
-	url = https://github.com/3x3y3z3t/imgui
-    branch = docking
-[submodule "ExWorkshop\\vendor\\yaml_cpp"]
-	path = ExWorkshop\\vendor\\yaml_cpp
-	url = https://github.com/3x3y3z3t/yaml-cpp
+    
+[submodule "ExWorkshop\\third_party\\glfw"]
+	path = ExWorkshop\\third_party\\glfw
+	url = https://github.com/glfw/glfw
+[submodule "ExWorkshop\\third_party\\glm"]
+	path = ExWorkshop\\third_party\\glm
+	url = https://github.com/g-truc/glm
+    
+[submodule "ExWorkshop\\third_party\\spdlog"]
+	path = ExWorkshop\\third_party\\spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "ExWorkshop\\third_party\\imgui"]
+	path = ExWorkshop\\third_party\\imgui
+	url = https://github.com/ocornut/imgui
+	branch = docking
+    
+[submodule "ExWorkshop\\third_party\\yaml_cpp"]
+	path = ExWorkshop\\third_party\\yaml_cpp
+	url = https://github.com/jbeder/yaml-cpp
+    
+[submodule "ExWorkshop\\third_party\\dr_libs"]
+	path = ExWorkshop\\third_party\\dr_libs
+	url = https://github.com/mackron/dr_libs
+[submodule "ExWorkshop\\third_party\\openal_soft"]
+	path = ExWorkshop\\third_party\\openal_soft
+	url = https://github.com/kcat/openal-soft
+[submodule "ExWorkshop\\third_party\\minimp3"]
+	path = ExWorkshop\\third_party\\minimp3
+	url = https://github.com/lieff/minimp3

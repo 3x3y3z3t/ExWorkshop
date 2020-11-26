@@ -1,8 +1,8 @@
 // ;
 #include "expch.h"
-#include "Textures.h"
+#include "exw\graphics\Textures.h"
 
-#include "RenderAPI.h"
+#include "exw\graphics\RenderAPI.h"
 
 #include "platform\OpenGL\OpenGLTextures.h"
 

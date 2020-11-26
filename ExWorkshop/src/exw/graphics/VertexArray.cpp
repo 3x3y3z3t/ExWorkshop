@@ -1,8 +1,8 @@
 // ;
 #include "expch.h"
-#include "VertexArray.h"
+#include "exw\graphics\VertexArray.h"
 
-#include "RenderAPI.h"
+#include "exw\graphics\RenderAPI.h"
 
 #include "platform\OpenGL\OpenGLVertexArray.h"
 

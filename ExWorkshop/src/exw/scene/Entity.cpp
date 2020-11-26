@@ -1,6 +1,6 @@
 // ;
 #include "expch.h"
-#include "Entity.h"
+#include "exw\scene\Entity.h"
 
 namespace exw
 {

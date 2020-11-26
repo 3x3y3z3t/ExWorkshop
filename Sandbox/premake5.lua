@@ -15,7 +15,7 @@ project "Sandbox"
 
 	includedirs
 	{
-		"%{wks.location}/ExWorkshop/src",
+		"%{wks.location}/ExWorkshop/include",
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.entt}",
@@ -43,4 +43,3 @@ project "Sandbox"
 		defines "EXW_DST"
 		runtime "Release"
 		optimize "on"
-		

@@ -1,6 +1,6 @@
 // ;
 #include "expch.h"
-#include "SceneCamera.h"
+#include "exw\camera\SceneCamera.h"
 
 #include "exw\maths\math_utils.h"
 
