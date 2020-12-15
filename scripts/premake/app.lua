@@ -3,7 +3,7 @@ require("library")
 
 apps = { }
 
-function app(_name)
+function app(_name, _extDefines)
 	group("Apps")
 	project(_name)
 
@@ -39,6 +39,10 @@ function app(_name)
 		"%{wks.location}/" .._name.. "/src/**.cpp",
     }
 
+	defines {
+		_extDefines	
+	}
+
 	filter { "system:linux" }
 		linkoptions { "-pthread -Wl,-rpath=\\$$ORIGIN" }
 		links {
@@ -59,6 +63,7 @@ function app(_name)
 
 	filter { "configurations:Release" }
         kind("WindowedApp")
+        -- kind("ConsoleApp")
         defines {
             "EXW_REL"
         }

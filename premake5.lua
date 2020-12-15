@@ -21,9 +21,9 @@ third_party_library("yaml-cpp")
 
 third_party_library("openal-soft")
 
-library("ExWorkshop")
-app("ExToolbox")
-app("Sandbox")
+library("ExWorkshop", { settings.extDefExwExperimental })
+app("ExToolbox", { settings.extDefExwExperimental })
+app("Sandbox", { settings.extDefExwExperimental, settings.extDefRuntime })
 
 -- Set last app as startup
 workspace(settings.workspace_name)

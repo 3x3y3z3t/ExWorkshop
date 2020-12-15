@@ -9,18 +9,6 @@ namespace exw
 {
     namespace maths
     {
-        vector4::vector4()
-            : x(0.0f), y(0.0f), z(0.0f), w(0.0f)
-        {}
-
-        vector4::vector4(float _x, float _y, float _z, float _w)
-            : x(_x), y(_y), z(_z), w(_w)
-        {}
-
-        vector4::vector4(float _scalar)
-            : x(_scalar), y(_scalar), z(_scalar), w(_scalar)
-        {}
-
         vector4::vector4(const vector2& _vct)
             : x(_vct.x), y(_vct.y), z(0.0f), w(0.0f)
         {}
@@ -28,18 +16,18 @@ namespace exw
         vector4::vector4(const vector3& _vct)
             : x(_vct.x), y(_vct.y), z(_vct.z), w(0.0f)
         {}
-
-        vector4::vector4(const vector4& _vct)
-            : raw(_vct.raw)
-        {}
-
-        vector4::vector4(const glm::vec4& _raw)
-            : raw(_raw)
-        {}
-
         bool vector4::operator==(const vector3& _other)
         {
             return (this->x == _other.x && this->y == _other.y && this->z == _other.z);
+        }
+
+        std::string vector4::to_string(bool _longString) const
+        {
+            std::stringstream ss;
+            if (_longString)
+                ss << "vector4";
+            ss << "(" << x << ", " << y << ", " << z << ", " << w << ")";
+            return ss.str();
         }
 
         bool operator==(const vector4& _vct1, const vector3& _vct2)

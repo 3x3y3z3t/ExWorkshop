@@ -25,13 +25,12 @@ namespace exw
 
             const matrix4& invert();
 
-            static matrix4 inverse(const matrix4& _mat);
-
-            const vector4& operator[](uint8_t _index) { return columns[_index]; }
+            const vector4& operator[](uint8_t _index);
 
             friend matrix4 operator*(const matrix4& _mat1, const matrix4& _mat2);
             friend vector4 operator*(const matrix4& _mat1, const vector4& _vec1);
-
         };
     }
 }
+
+#include "matrix4.inl"
