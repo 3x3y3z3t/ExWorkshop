@@ -3,7 +3,7 @@ include "./vendor/premake/config/solution_items.lua"
 
 workspace "ExWorkshop"
     architecture "x86_64"
-    startproject "ExToolbox"
+    startproject "Sandbox"
 
     configurations
     {

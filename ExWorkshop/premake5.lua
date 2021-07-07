@@ -21,6 +21,7 @@ project "ExWorkshop"
     defines
     {
         "_CRT_SECURE_NO_WARNINGS",
+        "EXW_CORE_LIB",
     }
 
     includedirs
