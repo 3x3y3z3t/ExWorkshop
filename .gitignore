@@ -1,0 +1,17 @@
+
+.vs/
+**/bin/
+**/bin-int/
+**/__pycache__/
+
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+*.exe
+*.json
+*.log
+*.pdb
+*.lib
+*.ini
+*.exs
