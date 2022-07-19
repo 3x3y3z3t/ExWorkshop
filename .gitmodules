@@ -1,0 +1,3 @@
+[submodule "ExWorkshop/vendor/spdlog"]
+	path = ExWorkshop/vendor/spdlog
+	url = https://github.com/3x3y3z3t/spdlog

@@ -21,7 +21,8 @@ project "ExWorkshop"
     }
 
     includedirs {
-        "src"
+        "src",
+        "%{IncludeDir.spdlog}"
     }
 
     libdirs {

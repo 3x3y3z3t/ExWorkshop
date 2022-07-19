@@ -1,4 +1,5 @@
 --
+include "Dependencies.lua"
 
 workspace "ExWorkshop"
     architecture "x86_64"
