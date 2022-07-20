@@ -1,12 +1,11 @@
 /*  Application.h
-*   Version: 1.0 (2022.07.20)
+*   Version: 1.1 (2022.07.21)
 *
 *   Contributor
 *       Arime-chan
 */
 #include "exwpch.h"
 #include "Application.h"
-
 
 namespace exw
 {
@@ -34,19 +33,48 @@ namespace exw
         }
 
         m_Running = true;
+        m_Minimized = false;
 
         s_Instance = this;
     }
 
     Application::~Application()
     {
+        EXW_CORE_LOG_TRACE("Closing Application..");
 
+        EXW_CORE_LOG_TRACE("  >> Done.");
     }
 
     void Application::close()
     {
-        EXW_CORE_LOG_TRACE("Application is closing..");
         m_Running = false;
+    }
+
+    void Application::push_layer(events::Layer* _layer)
+    {
+        m_Layers.push_layer(_layer);
+        _layer->attach();
+    }
+
+    void Application::push_overlay(events::Layer* _overlay)
+    {
+        m_Layers.push_overlay(_overlay);
+        _overlay->attach();
+    }
+
+    void Application::on_event(events::Event& _event)
+    {
+        events::EventDispatcher dispatcher(_event);
+
+        for (auto iterator = m_Layers.rbegin(); iterator != m_Layers.rend(); ++iterator)
+        {
+            if (_event.Handled)
+                break;
+
+            (*iterator)->on_event(_event);
+        }
+
+
     }
 
     void Application::run()
@@ -54,6 +82,15 @@ namespace exw
         EXW_CORE_LOG_DEBUG("Application::run()");
         while (m_Running)
         {
+            if (!m_Minimized)
+            {
+                for (events::Layer* layer : m_Layers)
+                {
+                    layer->update(16.667f); // fixed 60fps;
+                }
+            }
+
+
             ++m_Last_frame_time; // +1 ticks
 
             if (m_Last_frame_time = 100'000)
@@ -61,6 +98,7 @@ namespace exw
         }
         EXW_CORE_LOG_DEBUG("  End run.");
     }
+
 }
 
 

@@ -22,7 +22,6 @@ int main(int _argc, char* _argv[], char* _envp[])
     app->run();
 
     app->close();
-    EXW_CORE_LOG_TRACE("Application closed.");
 
 
     return 0;
