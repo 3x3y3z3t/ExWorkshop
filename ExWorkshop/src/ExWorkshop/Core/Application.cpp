@@ -1,4 +1,4 @@
-/*  Application.h
+/*  Application.cpp
 *   Version: 1.1 (2022.07.21)
 *
 *   Contributor
@@ -36,6 +36,8 @@ namespace exw
         m_Minimized = false;
 
         s_Instance = this;
+
+        EXW_CORE_LOG_TRACE("  >> Done.");
     }
 
     Application::~Application()

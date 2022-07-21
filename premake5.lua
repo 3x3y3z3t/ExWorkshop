@@ -3,7 +3,7 @@ include "Dependencies.lua"
 
 workspace "ExWorkshop"
     architecture "x86_64"
-    startproject "ExWorkshop"
+    startproject "Sandbox"
 
     configurations {
         "Debug",
@@ -23,3 +23,4 @@ group "Dependencies"
 group ""
 
 include "ExWorkshop"
+include "Sandbox"

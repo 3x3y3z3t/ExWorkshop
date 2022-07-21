@@ -1,16 +1,17 @@
-/*  EntryPoint.cpp
-*   Version: 1.2 (2022.07.20)
+/*  EntryPoint.h
+*   Version: 1.3 (2022.07.21)
 *
+*   Previois version
+*       v1.2 (EntryPoint.cpp)
+* 
 *   Contributor
 *       Arime-chan
 */
 
-#include "exwpch.h"
-
-#include "utils\Logger.h"
+#include "ExWorkshop\Utils\Logger.h"
 #include "ExWorkshop\Core\Application.h"
 
-extern exw::Application* exw::create_application(AppCommandLineArgs _args);
+extern exw::Application* exw::create_application(exw::AppCommandLineArgs _args);
 
 int main(int _argc, char* _argv[], char* _envp[])
 {
@@ -25,9 +26,4 @@ int main(int _argc, char* _argv[], char* _envp[])
 
 
     return 0;
-}
-
-exw::Application* exw::create_application(AppCommandLineArgs _args)
-{
-    return new Application("ExWorkshop App", ".", _args);
 }
