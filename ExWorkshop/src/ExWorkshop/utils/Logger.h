@@ -1,5 +1,5 @@
 /*  Logger.h
-*   Version: 1.0 (2022.07.20)
+*   Version: 1.1 (2022.07.21)
 *
 *   Contributor
 *       Arime-chan
@@ -23,14 +23,15 @@ namespace exw
         public:
             static void init();
 
-            static ref<spdlog::logger>& get_core_logger() { return s_Core_logger; }
-            static ref<spdlog::logger>& get_client_logger() { return s_Client_logger; }
+            static refs::Ref<spdlog::logger>& get_core_logger() { return s_Core_logger; }
+            static refs::Ref<spdlog::logger>& get_client_logger() { return s_Client_logger; }
 
         private:
-            static ref<spdlog::logger> s_Core_logger;
-            static ref<spdlog::logger> s_Client_logger;
+            static refs::Ref<spdlog::logger> s_Core_logger;
+            static refs::Ref<spdlog::logger> s_Client_logger;
 
         };
+
     }
 }
 

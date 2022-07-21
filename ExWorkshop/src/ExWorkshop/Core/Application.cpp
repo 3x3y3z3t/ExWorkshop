@@ -1,5 +1,5 @@
 /*  Application.cpp
-*   Version: 1.1 (2022.07.21)
+*   Version: 1.2 (2022.07.21)
 *
 *   Contributor
 *       Arime-chan
@@ -24,13 +24,21 @@ namespace exw
             std::filesystem::current_path(m_Working_dir);
 
         EXW_CORE_LOG_TRACE("Creating Application..");
-        EXW_CORE_LOG_TRACE("  App name         : {0}", m_App_name);
+        EXW_CORE_LOG_TRACE("  App name         : {0}", _name);
         EXW_CORE_LOG_TRACE("  Working directory: {0}", std::filesystem::current_path());
-        EXW_CORE_LOG_TRACE("  Command Line Args: {0}", m_Args.Count);
+        EXW_CORE_LOG_TRACE("  Command Line Args: {0}", _args.Count);
         for (int i = 0; i < m_Args.Count; ++i)
         {
             EXW_CORE_LOG_TRACE("    {0}", m_Args[i]);
         }
+
+        m_Window = Window::create(WindowProperties(_name));
+        m_Window->set_event_callback([this] (auto&... _args) -> decltype(auto)
+        {
+            return this->on_event(std::forward<decltype(_args)>(_args)...);
+        });
+
+
 
         m_Running = true;
         m_Minimized = false;
@@ -47,7 +55,7 @@ namespace exw
         EXW_CORE_LOG_TRACE("  >> Done.");
     }
 
-    void Application::close()
+    void Application::shutdown()
     {
         m_Running = false;
     }
@@ -66,7 +74,26 @@ namespace exw
 
     void Application::on_event(events::Event& _event)
     {
-        events::EventDispatcher dispatcher(_event);
+        using namespace events;
+        EventDispatcher dispatcher(_event);
+        dispatcher.dispatch<WindowResizedEvent>([&] (WindowResizedEvent& _evt)
+        {
+            if (_evt.get_width() == 0U || _evt.get_height() == 0U)
+            {
+                m_Minimized = true;
+                return false;
+            }
+
+            m_Minimized = false;
+
+            return false;
+        });
+        dispatcher.dispatch<WindowClosedEvent>([&] (WindowClosedEvent& _evt)
+        {
+            m_Running = false;
+            return true;
+        });
+
 
         for (auto iterator = m_Layers.rbegin(); iterator != m_Layers.rend(); ++iterator)
         {
@@ -92,11 +119,7 @@ namespace exw
                 }
             }
 
-
-            ++m_Last_frame_time; // +1 ticks
-
-            if (m_Last_frame_time = 100'000)
-                break;
+            m_Window->update();
         }
         EXW_CORE_LOG_DEBUG("  End run.");
     }

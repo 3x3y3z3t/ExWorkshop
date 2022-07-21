@@ -22,7 +22,7 @@ int main(int _argc, char* _argv[], char* _envp[])
     
     app->run();
 
-    app->close();
+    app->shutdown();
 
 
     return 0;

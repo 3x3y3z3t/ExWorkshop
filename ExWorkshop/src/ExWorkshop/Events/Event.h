@@ -1,5 +1,5 @@
 /*  Event.h
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.07.21)
 *
 *   Contributor
 *       Arime-chan
@@ -18,13 +18,14 @@ namespace exw
             virtual EventType get_event_type() const override { return get_event_type_static(); }   \
             virtual const char* get_event_name() const override { return #_type; }
 
-        #define EVENT_CLASS_CATEGORY(_category)                                     \
+        #define EVENT_CLASS_CATEGORY(_category)                                                     \
             virtual int get_category_flags() const override { return _category; }
 
 
         enum class EventType
         {
             None = 0,
+            WindowResized, WindowMoved, WindowFocused, WindowLostFocus, WindowClosed,
             KeyPressed, KeyReleased, KeyTyped,
             MouseButtonPressed, MouseButtonReleased, MouseButtonClicked, MouseMoved, MouseScrolled
         };
@@ -69,7 +70,7 @@ namespace exw
             template<typename T, typename Func>
             bool dispatch(const Func& _func)
             {
-                if (m_Event.get_event_type() == T::get_static_type())
+                if (m_Event.get_event_type() == T::get_event_type_static())
                 {
                     m_Event.Handled |= _func(static_cast<T&>(m_Event));
                     return true;

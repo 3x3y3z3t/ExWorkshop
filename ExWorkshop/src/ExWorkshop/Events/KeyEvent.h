@@ -1,5 +1,5 @@
 /*  KeyEvent.h
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.07.21)
 *
 *   Contributor
 *       Arime-chan
@@ -33,24 +33,25 @@ namespace exw
         class KeyPressedEvent : public KeyEvent
         {
         public:
-            KeyPressedEvent(const Keys::KeyCode _keycode, int _repeatCount = 0)
-                : KeyEvent(_keycode), m_Repeat_count(_repeatCount)
+            KeyPressedEvent(const Keys::KeyCode _keycode, bool _repeated = false)
+                : KeyEvent(_keycode), m_Repeated(_repeated)
             {}
 
             EVENT_CLASS_TYPE(EventType::KeyPressed)
 
-            bool is_repeated() const { return m_Repeat_count > 0; }
-            int get_repeat_count() const { return m_Repeat_count; }
+            bool is_repeated() const { return m_Repeated; }
 
             std::string to_string() const override
             {
                 std::stringstream ss;
-                ss << "KeyPressedEvent: " << m_Key_code << " (x" << m_Repeat_count << ")";
+                ss << "KeyPressedEvent: " << m_Key_code;
+                if (m_Repeated)
+                    ss << "(repeated)";
                 return ss.str();
             }
 
         private:
-            int m_Repeat_count = 0;
+            int m_Repeated = false;
         };
 
         class KeyReleasedEvent : public KeyEvent

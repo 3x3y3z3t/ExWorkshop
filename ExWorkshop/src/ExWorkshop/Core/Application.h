@@ -1,5 +1,5 @@
 /*  Application.h
-*   Version: 1.1 (2022.07.21)
+*   Version: 1.2 (2022.07.21)
 *
 *   Contributor
 *       Arime-chan
@@ -8,7 +8,9 @@
 #pragma once
 #include "exwpch.h"
 
+#include "Window.h"
 #include "ExWorkshop\Events\Event.h"
+#include "ExWorkshop\Events\WindowEvent.h"
 #include "ExWorkshop\Events\Layer.h"
 #include "ExWorkshop\Events\LayerStack.h"
 #include "ExWorkshop\Utils\Logger.h"
@@ -41,12 +43,14 @@ namespace exw
 
         static Application& get() { return *s_Instance; }
 
-        void close();
+        void shutdown();
 
         void push_layer(events::Layer* _layer);
         void push_overlay(events::Layer* _overlay);
 
         void on_event(events::Event& _event);
+
+        Window& get_window() { return *m_Window; }
 
     private:
         void run();
@@ -63,6 +67,8 @@ namespace exw
         AppCommandLineArgs m_Args;
 
         events::LayerStack m_Layers;
+
+        refs::Scoped<Window> m_Window;
 
         friend int ::main(int _argc, char* _argv[], char* _envp[]);
     };

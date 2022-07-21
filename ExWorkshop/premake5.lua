@@ -22,15 +22,17 @@ project "ExWorkshop"
 
     includedirs {
         "src",
-        "%{IncludeDir.spdlog}"
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.glfw}"
     }
 
     libdirs {
-    
+
     }
 
     links {
-        
+        "GLFW",
+        "opengl32.lib"
     }
 
     flags {
