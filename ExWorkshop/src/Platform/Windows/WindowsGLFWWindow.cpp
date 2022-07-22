@@ -1,5 +1,5 @@
 /*  WindowsGLFWWindow.cpp
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -46,8 +46,9 @@ namespace exw
         //m_Context = GraphicsContext::create(m_Native_window);
         //m_Context->init();
 
+        glfwMakeContextCurrent(m_Native_window);
         glfwSetWindowUserPointer(m_Native_window, &m_Data);
-        //set_vsync(true); // vsync is enable by default;
+        set_vsync(true); // vsync is enable by default;
 
         #pragma region GLFW Callbacks Setup
         glfwSetWindowSizeCallback(m_Native_window, [] (GLFWwindow* _window, int _width, int _height)
@@ -141,7 +142,7 @@ namespace exw
         });
         #pragma endregion
 
-        glClearColor(0.9f, 0.2f, 0.2f, 1.0f);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
         EXW_LOG_CORE_TRACE("  >> Done.");
     }
