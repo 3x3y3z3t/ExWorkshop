@@ -8,16 +8,17 @@
 
 #include "exwpch.h"
 
-#include "ExWorkshop\Common.h"
+#include "exw\Common.h"
 
-#include "ExWorkshop\Core\Application.h"
+#include "exw\Core\Application.h"
+#include "exw\Core\Input.h"
+#include "exw\Core\Layer.h"
 
-#include "ExWorkshop\Events\Event.h"
-#include "ExWorkshop\Events\KeyEvent.h"
-#include "ExWorkshop\Events\Layer.h"
-#include "ExWorkshop\Events\MouseEvent.h"
+#include "exw\Events\Event.h"
+#include "exw\Events\KeyEvent.h"
+#include "exw\Events\MouseEvent.h"
 
-#include "ExWorkshop\Utils\Logger.h"
+#include "exw\Utils\Logger.h"
 
 
-#include "ExWorkshop\EntryPoint.h"
+#include "exw\EntryPoint.h"

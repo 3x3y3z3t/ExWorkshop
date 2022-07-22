@@ -4,16 +4,15 @@
 *   Contributor
 *       Arime-chan
 */
-
 #pragma once
 #include "exwpch.h"
 
 #include "Window.h"
-#include "ExWorkshop\Events\Event.h"
-#include "ExWorkshop\Events\WindowEvent.h"
-#include "ExWorkshop\Events\Layer.h"
-#include "ExWorkshop\Events\LayerStack.h"
-#include "ExWorkshop\Utils\Logger.h"
+#include "exw\Core\Layer.h"
+#include "exw\Core\LayerStack.h"
+#include "exw\Events\Event.h"
+#include "exw\Events\WindowEvent.h"
+#include "exw\Utils\Logger.h"
 
 int main(int _argc, char* _argv[], char* _envp[]);
 
@@ -45,8 +44,8 @@ namespace exw
 
         void shutdown();
 
-        void push_layer(events::Layer* _layer);
-        void push_overlay(events::Layer* _overlay);
+        void push_layer(Layer* _layer);
+        void push_overlay(Layer* _overlay);
 
         void on_event(events::Event& _event);
 
@@ -66,7 +65,7 @@ namespace exw
         std::string m_Working_dir;
         AppCommandLineArgs m_Args;
 
-        events::LayerStack m_Layers;
+        LayerStack m_Layers;
 
         refs::Scoped<Window> m_Window;
 

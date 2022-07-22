@@ -9,11 +9,8 @@
 
 namespace exw
 {
-    namespace events
-    {
-        Layer::Layer(const std::string& _name)
-            : m_Name(_name)
-        {}
+    Layer::Layer(const std::string& _name)
+        : m_Name(_name)
+    {}
 
-    }
 }

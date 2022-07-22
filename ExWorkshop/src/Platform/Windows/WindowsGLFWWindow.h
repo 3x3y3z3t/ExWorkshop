@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "ExWorkshop\Core\Window.h"
+#include "exw\Core\Window.h"
 
 #include <GLFW\glfw3.h>
 

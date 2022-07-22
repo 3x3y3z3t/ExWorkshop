@@ -7,10 +7,10 @@
 #include "exwpch.h"
 #include "WindowsGLFWWindow.h"
 
-#include "ExWorkshop\Events\KeyEvent.h"
-#include "ExWorkshop\Events\MouseEvent.h"
-#include "ExWorkshop\Events\WindowEvent.h"
-#include "ExWorkshop\Utils\Logger.h"
+#include "exw\Events\KeyEvent.h"
+#include "exw\Events\MouseEvent.h"
+#include "exw\Events\WindowEvent.h"
+#include "exw\Utils\Logger.h"
 
 namespace exw
 {

@@ -1,5 +1,5 @@
 /*  exwpch.h
-*   Version: 1.4 (2022.07.21)
+*   Version: 1.5 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -15,4 +15,5 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>

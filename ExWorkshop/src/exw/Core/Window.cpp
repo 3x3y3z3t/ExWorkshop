@@ -7,7 +7,7 @@
 #include "exwpch.h"
 #include "Window.h"
 
-#include "ExWorkshop\Utils\Logger.h"
+#include "exw\Utils\Logger.h"
 
 #ifdef EXW_PLATFORM_WINDOW
 #include "Platform\Windows\WindowsGLFWWindow.h"

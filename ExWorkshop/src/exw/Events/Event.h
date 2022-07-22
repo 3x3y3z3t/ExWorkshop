@@ -7,7 +7,7 @@
 #pragma once
 #include"exwpch.h"
 
-#include "ExWorkshop\Common.h"
+#include "exw\Common.h"
 
 #pragma warning(disable:26812)
 namespace exw

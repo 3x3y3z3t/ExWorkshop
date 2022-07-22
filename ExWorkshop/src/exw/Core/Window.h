@@ -7,8 +7,8 @@
 #pragma once
 #include "exwpch.h"
 
-#include "ExWorkshop\Common.h"
-#include "ExWorkshop\Events\Event.h"
+#include "exw\Common.h"
+#include "exw\Events\Event.h"
 
 namespace exw
 {

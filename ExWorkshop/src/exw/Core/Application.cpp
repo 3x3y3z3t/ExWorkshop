@@ -62,13 +62,13 @@ namespace exw
         m_Running = false;
     }
 
-    void Application::push_layer(events::Layer* _layer)
+    void Application::push_layer(Layer* _layer)
     {
         m_Layers.push_layer(_layer);
         _layer->attach();
     }
 
-    void Application::push_overlay(events::Layer* _overlay)
+    void Application::push_overlay(Layer* _overlay)
     {
         m_Layers.push_overlay(_overlay);
         _overlay->attach();
@@ -115,7 +115,7 @@ namespace exw
         {
             if (!m_Minimized)
             {
-                for (events::Layer* layer : m_Layers)
+                for (Layer* layer : m_Layers)
                 {
                     layer->update(16.667f); // fixed 60fps;
                 }
