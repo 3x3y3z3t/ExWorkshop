@@ -22,6 +22,7 @@ project "ExWorkshop"
 
     includedirs {
         "src",
+        "%{IncludeDir.glad}",
         "%{IncludeDir.glfw}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.spdlog}"
@@ -37,6 +38,7 @@ project "ExWorkshop"
     }
 
     links {
+        "Glad",
         "GLFW",
         "opengl32.lib"
     }

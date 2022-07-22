@@ -1,5 +1,5 @@
 /*  WindowsGLFWWindow.cpp
-*   Version: 1.1 (2022.07.22)
+*   Version: 1.3 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -27,9 +27,9 @@ namespace exw
         m_Data.Width = _props.Width;
         m_Data.Height = _props.Height;
 
-        EXW_LOG_CORE_TRACE("Creating window..");
-        EXW_LOG_CORE_TRACE("  Window name: {0}", _props.Title);
-        EXW_LOG_CORE_TRACE("  Window size: {0} x {1}", _props.Width, _props.Height);
+        EXW_LOG_CORE_INFO("Window info:");
+        EXW_LOG_CORE_INFO("  Window name: {0}", _props.Title);
+        EXW_LOG_CORE_INFO("  Window size: {0} x {1}", _props.Width, _props.Height);
 
         if (s_GLFT_window_count == 0)
         {
@@ -38,18 +38,21 @@ namespace exw
             glfwSetErrorCallback(glfw_err_callback);
         }
 
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+            m_Native_window = glfwCreateWindow((int)_props.Width, (int)_props.Height, _props.Title.c_str(), nullptr, nullptr);
+            ++s_GLFT_window_count;
+            glfwSetWindowAttrib(m_Native_window, GLFW_RESIZABLE, GLFW_FALSE);
 
-        m_Native_window = glfwCreateWindow((int)_props.Width, (int)_props.Height, _props.Title.c_str(), nullptr, nullptr);
-        ++s_GLFT_window_count;
-        //glfwSetWindowAttrib(m_Native_window, GLFW_RESIZABLE, GLFW_FALSE);
-
+            EXW_LOG_CORE_TRACE("Initializing graphics context..");
         EXW_LOG_CORE_INDENT_IN();
-        glfwMakeContextCurrent(m_Native_window);
+        {
+            m_Graphics_context = graphics::GraphicsContext::create(m_Native_window);
+            m_Graphics_context->init();
+        }
         EXW_LOG_CORE_INDENT_OUT();
+            EXW_LOG_CORE_TRACE("Graphics context initialized.");
 
-        glfwSetWindowUserPointer(m_Native_window, &m_Data);
-        set_vsync(true); // vsync is enable by default;
+            glfwSetWindowUserPointer(m_Native_window, &m_Data);
+            set_vsync(true); // vsync is enable by default;
 
         #pragma region GLFW Callbacks Setup
         glfwSetWindowSizeCallback(m_Native_window, [] (GLFWwindow* _window, int _width, int _height)
@@ -145,7 +148,7 @@ namespace exw
 
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        EXW_LOG_CORE_TRACE("  >> Done.");
+        EXW_LOG_CORE_TRACE("<< Done.");
     }
 
     WindowsGLFWWindow::~WindowsGLFWWindow()
@@ -161,8 +164,8 @@ namespace exw
     {
         glfwPollEvents();
 
-        glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(m_Native_window);
+        //glClear(GL_COLOR_BUFFER_BIT);
+        m_Graphics_context->swap_buffers();
     }
 
     bool WindowsGLFWWindow::is_vsync() const

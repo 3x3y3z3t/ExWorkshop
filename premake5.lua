@@ -20,6 +20,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 group "Dependencies"
     include "scripts/premake"
     include "ExWorkshop/vendor/glfw"
+    include "ExWorkshop/vendor/glad"
 
 group ""
 

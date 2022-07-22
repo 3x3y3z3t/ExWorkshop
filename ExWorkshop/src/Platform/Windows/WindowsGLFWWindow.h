@@ -1,5 +1,5 @@
 /*  WindowsGLFWWindow.cpp
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -7,6 +7,7 @@
 #pragma once
 
 #include "exw\core\Window.h"
+#include "exw\graphics\GraphicsContext.h"
 
 #include <GLFW\glfw3.h>
 
@@ -30,6 +31,7 @@ namespace exw
 
     private:
         GLFWwindow* m_Native_window = nullptr;
+        refs::Scoped<graphics::GraphicsContext> m_Graphics_context;
 
         struct WindowData
         {
