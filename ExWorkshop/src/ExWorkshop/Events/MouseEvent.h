@@ -1,5 +1,5 @@
 /*  MouseEvent.h
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -9,6 +9,7 @@
 #include "Event.h"
 #include "KeyCodes.h"
 
+#pragma warning(disable:26812)
 namespace exw
 {
     namespace events
@@ -141,3 +142,4 @@ namespace exw
 
     }
 }
+#pragma warning(restore:26812)

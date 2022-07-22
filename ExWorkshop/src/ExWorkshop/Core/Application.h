@@ -28,7 +28,7 @@ namespace exw
         {
             if (_index >= Count)
             {
-                EXW_CORE_LOG_CRITICAL("Index out of range.");
+                EXW_LOG_CORE_CRITICAL("Index out of range.");
                 return ""; // TODO: assert;
             }
             return Args[_index];

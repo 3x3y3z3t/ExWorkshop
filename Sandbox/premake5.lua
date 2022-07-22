@@ -7,22 +7,25 @@ project "Sandbox"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files
-	{
+	files {
 		"src/**.h",
 		"src/**.cpp"
 	}
 
-	includedirs
-	{
+	includedirs	{
 		"%{wks.location}/ExWorkshop/src",
-        "%{IncludeDir.spdlog}",
+		"%{IncludeDir.spdlog}"
 	}
+    
+    -- externalincludedirs {
+    --     "%{IncludeDir.spdlog}"
+    -- }
 
-	links
-	{
+	links {
 		"ExWorkshop"
 	}
+
+    -- externalwarnings "off"
 
 	filter "system:windows"
 		systemversion "latest"

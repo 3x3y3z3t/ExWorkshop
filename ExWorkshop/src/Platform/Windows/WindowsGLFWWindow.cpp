@@ -18,7 +18,7 @@ namespace exw
 
     static void glfw_err_callback(int _error, const char* _description)
     {
-        EXW_CORE_LOG_ERROR("GLFW Error {0}: {1}", _error, _description);
+        EXW_LOG_CORE_ERROR("GLFW Error {0}: {1}", _error, _description);
     }
 
     WindowsGLFWWindow::WindowsGLFWWindow(const WindowProperties& _props)
@@ -27,9 +27,9 @@ namespace exw
         m_Data.Width = _props.Width;
         m_Data.Height = _props.Height;
 
-        EXW_CORE_LOG_TRACE("Creating window..");
-        EXW_CORE_LOG_TRACE("  Window name : {0}", _props.Title);
-        EXW_CORE_LOG_TRACE("  Window size : {0} x {1}", _props.Width, _props.Height);
+        EXW_LOG_CORE_TRACE("Creating window..");
+        EXW_LOG_CORE_TRACE("  Window name: {0}", _props.Title);
+        EXW_LOG_CORE_TRACE("  Window size: {0} x {1}", _props.Width, _props.Height);
 
         if (s_GLFT_window_count == 0)
         {
@@ -143,7 +143,7 @@ namespace exw
 
         glClearColor(0.9f, 0.2f, 0.2f, 1.0f);
 
-        EXW_CORE_LOG_TRACE("  >> Done.");
+        EXW_LOG_CORE_TRACE("  >> Done.");
     }
 
     WindowsGLFWWindow::~WindowsGLFWWindow()

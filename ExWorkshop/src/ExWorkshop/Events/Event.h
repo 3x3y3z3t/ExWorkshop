@@ -1,5 +1,5 @@
 /*  Event.h
-*   Version: 1.1 (2022.07.21)
+*   Version: 1.2 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -9,6 +9,7 @@
 
 #include "ExWorkshop\Common.h"
 
+#pragma warning(disable:26812)
 namespace exw
 {
     namespace events
@@ -85,3 +86,5 @@ namespace exw
 
     }
 }
+
+#pragma warning(default:26812)

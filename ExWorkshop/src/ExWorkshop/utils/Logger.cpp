@@ -1,5 +1,5 @@
 /*  Logger.cpp
-*   Version: 1.1 (2022.07.20)
+*   Version: 1.2 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -14,8 +14,11 @@ namespace exw
 {
     namespace utils
     {
-        refs::Ref<spdlog::logger> Logger::s_Core_logger;
-        refs::Ref<spdlog::logger> Logger::s_Client_logger;
+        uint8_t Logger::s_Indent_core = 0U;
+        uint8_t Logger::s_Indent_client = 0U;
+
+        refs::Ref<spdlog::logger> Logger::s_Logger_core;
+        refs::Ref<spdlog::logger> Logger::s_Logger_client;
 
         void Logger::init()
         {
@@ -32,15 +35,16 @@ namespace exw
             sinks[0]->set_pattern("%^[%C.%m.%d %H:%M:%S.%e][%t][%n] %v%$");
             sinks[1]->set_pattern("[%C.%m.%d %H:%M:%S.%e][%t][%n][%-8l] %v");
 
-            s_Core_logger = refs::create_ref<spdlog::logger>("CORE", std::begin(sinks), std::end(sinks));
-            spdlog::register_logger(s_Core_logger);
-            s_Core_logger->set_level(spdlog::level::trace);
-            s_Core_logger->flush_on(spdlog::level::trace);
+            s_Logger_core = refs::create_ref<spdlog::logger>("CORE", std::begin(sinks), std::end(sinks));
+            spdlog::register_logger(s_Logger_core);
+            s_Logger_core->set_level(spdlog::level::trace);
+            s_Logger_core->flush_on(spdlog::level::trace);
 
-            s_Client_logger = refs::create_ref<spdlog::logger>("APP ", std::begin(sinks), std::end(sinks));
-            spdlog::register_logger(s_Client_logger);
-            s_Client_logger->set_level(spdlog::level::trace);
-            s_Client_logger->flush_on(spdlog::level::trace);
+            s_Logger_client = refs::create_ref<spdlog::logger>("APP ", std::begin(sinks), std::end(sinks));
+            spdlog::register_logger(s_Logger_client);
+            s_Logger_client->set_level(spdlog::level::trace);
+            s_Logger_client->flush_on(spdlog::level::trace);
         }
+
     }
 }

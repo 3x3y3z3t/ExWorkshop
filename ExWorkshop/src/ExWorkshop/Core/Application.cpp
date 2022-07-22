@@ -1,5 +1,5 @@
 /*  Application.cpp
-*   Version: 1.2 (2022.07.21)
+*   Version: 1.3 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -16,27 +16,29 @@ namespace exw
     {
         if (s_Instance != nullptr)
         {
-            EXW_CORE_LOG_CRITICAL("An instance of application is already running.");
+            utils::Logger::core_critical("An instance of application is already running.");
             return; // TODO: assert;
         }
 
         if (!m_Working_dir.empty())
             std::filesystem::current_path(m_Working_dir);
 
-        EXW_CORE_LOG_TRACE("Creating Application..");
-        EXW_CORE_LOG_TRACE("  App name         : {0}", _name);
-        EXW_CORE_LOG_TRACE("  Working directory: {0}", std::filesystem::current_path());
-        EXW_CORE_LOG_TRACE("  Command Line Args: {0}", _args.Count);
+        EXW_LOG_CORE_TRACE("Creating Application..");
+        EXW_LOG_CORE_TRACE("  App name         : {0}", _name);
+        EXW_LOG_CORE_TRACE("  Working directory: {0}", std::filesystem::current_path());
+        EXW_LOG_CORE_TRACE("  Command Line Args: {0}", _args.Count);
         for (int i = 0; i < m_Args.Count; ++i)
         {
-            EXW_CORE_LOG_TRACE("    {0}", m_Args[i]);
+            EXW_LOG_CORE_TRACE("    {0}", m_Args[i]);
         }
 
+        EXW_LOG_CORE_INDENT_IN();
         m_Window = Window::create(WindowProperties(_name));
         m_Window->set_event_callback([this] (auto&... _args) -> decltype(auto)
         {
             return this->on_event(std::forward<decltype(_args)>(_args)...);
         });
+        EXW_LOG_CORE_INDENT_OUT();
 
 
 
@@ -45,14 +47,14 @@ namespace exw
 
         s_Instance = this;
 
-        EXW_CORE_LOG_TRACE("  >> Done.");
+        EXW_LOG_CORE_TRACE("  << Done.");
     }
 
     Application::~Application()
     {
-        EXW_CORE_LOG_TRACE("Closing Application..");
+        EXW_LOG_CORE_TRACE("Closing Application..");
 
-        EXW_CORE_LOG_TRACE("  >> Done.");
+        EXW_LOG_CORE_TRACE("  << Done.");
     }
 
     void Application::shutdown()
@@ -108,7 +110,7 @@ namespace exw
 
     void Application::run()
     {
-        EXW_CORE_LOG_DEBUG("Application::run()");
+        EXW_LOG_CORE_DEBUG("Application::run()");
         while (m_Running)
         {
             if (!m_Minimized)
@@ -121,7 +123,7 @@ namespace exw
 
             m_Window->update();
         }
-        EXW_CORE_LOG_DEBUG("  End run.");
+        EXW_LOG_CORE_DEBUG("  End run.");
     }
 
 }

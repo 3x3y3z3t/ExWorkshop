@@ -20,7 +20,7 @@ namespace exw
         #ifdef EXW_PLATFORM_WINDOW
         return refs::create_scoped<WindowsGLFWWindow>(_props);
         #else
-        EXW_CORE_LOG_CRITICAL("Could not create Window on unsupported platform."); // TODO: assert;
+        EXW_LOG_CORE_CRITICAL("Could not create Window on unsupported platform."); // TODO: assert;
         return nullptr;
         #endif // EXW_PLATFORM_WINDOW
     }

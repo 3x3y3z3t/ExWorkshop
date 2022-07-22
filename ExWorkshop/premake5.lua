@@ -25,6 +25,11 @@ project "ExWorkshop"
         "%{IncludeDir.spdlog}",
         "%{IncludeDir.glfw}"
     }
+    
+    -- externalincludedirs {
+    --     "%{IncludeDir.spdlog}",
+    --     "%{IncludeDir.glfw}"
+    -- }
 
     libdirs {
 
@@ -38,6 +43,8 @@ project "ExWorkshop"
     flags {
         "NoPCH"
     }
+
+    -- externalwarnings "off"
     
     filter "system:windows"
         systemversion "latest"

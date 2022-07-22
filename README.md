@@ -3,4 +3,4 @@
 # Current Version
 | Project    | Version |
 |------------|---------|
-| ExWorkshop | v0.6.0  |
+| ExWorkshop | v0.6.1  |
