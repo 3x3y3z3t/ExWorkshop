@@ -37,8 +37,13 @@ public:
         if (Input::is_mouse_btn_pressed(MouseBtn::Button0))
         {
             auto cursorPos = Input::get_cursor_pos();
-            EXW_LOG_DEBUG("Pressed ({0}, {1})", cursorPos.first, cursorPos.second);
+            EXW_LOG_DEBUG("Pressed ({0}, {1})", cursorPos.x, cursorPos.y);
         }
+
+
+        exw::maths::vector2 pos(1, 2);
+        EXW_LOG_DEBUG("Vector {0}, {1}", pos.x, pos.y);
+
     }
 
     virtual void on_event(exw::events::Event& _event)

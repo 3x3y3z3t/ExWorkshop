@@ -22,8 +22,9 @@ project "ExWorkshop"
 
     includedirs {
         "src",
-        "%{IncludeDir.spdlog}",
-        "%{IncludeDir.glfw}"
+        "%{IncludeDir.glfw}",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.spdlog}"
     }
     
     -- externalincludedirs {
@@ -40,9 +41,9 @@ project "ExWorkshop"
         "opengl32.lib"
     }
 
-    flags {
-        "NoPCH"
-    }
+    -- flags {
+    --     "NoPCH"
+    -- }
 
     -- externalwarnings "off"
     

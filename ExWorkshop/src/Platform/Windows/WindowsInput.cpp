@@ -1,16 +1,17 @@
 /*  WindowsInput.cpp
-*   Version: 1.0 (2022.07.22)
+*   Version: 1.1 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
 */
 #include "exwpch.h"
 
-#include "exw\Core\Application.h"
-#include "exw\Core\Input.h"
+#include "exw\core\Application.h"
+#include "exw\core\Input.h"
 
 #include <GLFW\glfw3.h>
 
+#pragma warning(disable:26812)
 namespace exw
 {
     bool exw::Input::is_key_pressed(Keys::KeyCode _key)
@@ -27,7 +28,7 @@ namespace exw
         return state == GLFW_PRESS;
     }
 
-    std::pair<float, float> Input::get_cursor_pos()
+    maths::vector2 Input::get_cursor_pos()
     {
         auto* window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
         double x, y;
@@ -35,3 +36,4 @@ namespace exw
         return { (float)x, (float)y };
     }
 }
+#pragma warning(restore:26812)

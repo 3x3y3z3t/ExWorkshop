@@ -1,5 +1,5 @@
 /*  Input.h
-*   Version: 1.0 (2022.07.22)
+*   Version: 1.1 (2022.07.22)
 *
 *   Contributor
 *       Arime-chan
@@ -7,7 +7,8 @@
 #pragma once
 #include "exwpch.h"
 
-#include "exw\Events\KeyCodes.h"
+#include "exw\events\KeyCodes.h"
+#include "exw\maths\Maths.h"
 
 namespace exw
 {
@@ -17,8 +18,8 @@ namespace exw
         static bool is_key_pressed(Keys::KeyCode _key);
         static bool is_mouse_btn_pressed(MouseBtn::MouseBtnCode _btn);
 
-        static std::pair<float, float> get_cursor_pos();
-        static float get_cursor_pos_x() { return get_cursor_pos().first; }
-        static float get_cursor_pos_y() { return get_cursor_pos().second; }
+        static maths::vector2 get_cursor_pos();
+        static float get_cursor_pos_x() { return get_cursor_pos().x; }
+        static float get_cursor_pos_y() { return get_cursor_pos().y; }
     };
 }

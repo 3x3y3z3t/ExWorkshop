@@ -12,6 +12,8 @@
 
 #define IS_FLAG_SET(_flags, _flag)      (_flags & _flag) != 0
 
+#define EXW_STRINGIFY(x)        #x
+
 namespace exw
 {
     namespace refs

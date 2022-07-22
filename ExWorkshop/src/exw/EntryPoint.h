@@ -8,8 +8,8 @@
 *       Arime-chan
 */
 
-#include "exw\Utils\Logger.h"
-#include "exw\Core\Application.h"
+#include "exw\utils\Logger.h"
+#include "exw\core\Application.h"
 
 extern exw::Application* exw::create_application(exw::AppCommandLineArgs _args);
 

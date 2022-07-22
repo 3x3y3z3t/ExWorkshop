@@ -7,10 +7,10 @@
 #include "exwpch.h"
 #include "WindowsGLFWWindow.h"
 
-#include "exw\Events\KeyEvent.h"
-#include "exw\Events\MouseEvent.h"
-#include "exw\Events\WindowEvent.h"
-#include "exw\Utils\Logger.h"
+#include "exw\events\KeyEvent.h"
+#include "exw\events\MouseEvent.h"
+#include "exw\events\WindowEvent.h"
+#include "exw\utils\Logger.h"
 
 namespace exw
 {
@@ -38,15 +38,16 @@ namespace exw
             glfwSetErrorCallback(glfw_err_callback);
         }
 
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
         m_Native_window = glfwCreateWindow((int)_props.Width, (int)_props.Height, _props.Title.c_str(), nullptr, nullptr);
         ++s_GLFT_window_count;
-        glfwSetWindowAttrib(m_Native_window, GLFW_RESIZABLE, GLFW_FALSE);
+        //glfwSetWindowAttrib(m_Native_window, GLFW_RESIZABLE, GLFW_FALSE);
 
-
-        //m_Context = GraphicsContext::create(m_Native_window);
-        //m_Context->init();
-
+        EXW_LOG_CORE_INDENT_IN();
         glfwMakeContextCurrent(m_Native_window);
+        EXW_LOG_CORE_INDENT_OUT();
+
         glfwSetWindowUserPointer(m_Native_window, &m_Data);
         set_vsync(true); // vsync is enable by default;
 
@@ -159,6 +160,7 @@ namespace exw
     void WindowsGLFWWindow::update()
     {
         glfwPollEvents();
+
         glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(m_Native_window);
     }

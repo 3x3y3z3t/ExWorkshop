@@ -14,6 +14,7 @@ project "Sandbox"
 
 	includedirs	{
 		"%{wks.location}/ExWorkshop/src",
+		"%{IncludeDir.glm}",
 		"%{IncludeDir.spdlog}"
 	}
     

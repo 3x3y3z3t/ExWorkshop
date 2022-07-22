@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "exw\Core\Window.h"
+#include "exw\core\Window.h"
 
 #include <GLFW\glfw3.h>
 
@@ -30,7 +30,6 @@ namespace exw
 
     private:
         GLFWwindow* m_Native_window = nullptr;
-        //scoped<GraphicsContext> m_Graphics_context;
 
         struct WindowData
         {

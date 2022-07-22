@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "exw\Events\Event.h"
+#include "exw\events\Event.h"
 
 namespace exw
 {

@@ -18,7 +18,7 @@ namespace exw
         uint32_t Width = 0;
         uint32_t Height = 0;
 
-        WindowProperties(const std::string& _title = "ExWorkshop", uint32_t _width = 1600, uint32_t _height = 900)
+        WindowProperties(const std::string& _title = "ExWorkshop", uint32_t _width = 1280, uint32_t _height = 720)
             : Title(_title), Width(_width), Height(_height)
         {}
     };

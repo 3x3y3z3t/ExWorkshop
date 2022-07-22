@@ -8,11 +8,11 @@
 #include "exwpch.h"
 
 #include "Window.h"
-#include "exw\Core\Layer.h"
-#include "exw\Core\LayerStack.h"
-#include "exw\Events\Event.h"
-#include "exw\Events\WindowEvent.h"
-#include "exw\Utils\Logger.h"
+#include "exw\core\Layer.h"
+#include "exw\core\LayerStack.h"
+#include "exw\events\Event.h"
+#include "exw\events\WindowEvent.h"
+#include "exw\utils\Logger.h"
 
 int main(int _argc, char* _argv[], char* _envp[]);
 
