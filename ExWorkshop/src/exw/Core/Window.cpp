@@ -1,5 +1,5 @@
 /*  Window.cpp
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.07.23)
 *
 *   Contributor
 *       Arime-chan
@@ -9,20 +9,20 @@
 
 #include "exw\Utils\Logger.h"
 
-#ifdef EXW_PLATFORM_WINDOW
+#ifdef EXW_PLATFORM_WINDOWS
 #include "Platform\Windows\WindowsGLFWWindow.h"
-#endif // EXW_PLATFORM_WINDOW
+#endif
 
 namespace exw
 {
     refs::Scoped<Window> Window::create(const WindowProperties& _props)
     {
-        #ifdef EXW_PLATFORM_WINDOW
+        #ifdef EXW_PLATFORM_WINDOWS
         return refs::create_scoped<WindowsGLFWWindow>(_props);
         #else
-        EXW_LOG_CORE_CRITICAL("Could not create Window on unsupported platform."); // TODO: assert;
+        EXW_ASSERT_CORE(false, "Could not create Window on unsupported platform.");
         return nullptr;
-        #endif // EXW_PLATFORM_WINDOW
+        #endif
     }
 
 }

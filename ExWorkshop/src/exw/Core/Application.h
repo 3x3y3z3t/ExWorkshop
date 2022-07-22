@@ -1,5 +1,5 @@
 /*  Application.h
-*   Version: 1.2 (2022.07.21)
+*   Version: 1.3 (2022.07.23)
 *
 *   Contributor
 *       Arime-chan
@@ -8,6 +8,7 @@
 #include "exwpch.h"
 
 #include "Window.h"
+#include "exw\Common.h"
 #include "exw\core\Layer.h"
 #include "exw\core\LayerStack.h"
 #include "exw\events\Event.h"
@@ -25,11 +26,7 @@ namespace exw
 
         const char* operator[](int _index) const
         {
-            if (_index >= Count)
-            {
-                EXW_LOG_CORE_CRITICAL("Index out of range.");
-                return ""; // TODO: assert;
-            }
+            EXW_ASSERT_CORE(_index < Count, "Index out of range");
             return Args[_index];
         }
     };

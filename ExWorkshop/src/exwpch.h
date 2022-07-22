@@ -4,7 +4,6 @@
 *   Contributor
 *       Arime-chan
 */
-
 #pragma once
 
 #include <stdint.h>

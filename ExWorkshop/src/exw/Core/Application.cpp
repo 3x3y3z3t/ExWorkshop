@@ -1,5 +1,5 @@
 /*  Application.cpp
-*   Version: 1.3 (2022.07.22)
+*   Version: 1.4 (2022.07.23)
 *
 *   Contributor
 *       Arime-chan
@@ -14,11 +14,7 @@ namespace exw
     Application::Application(std::string _name, std::string _workingDir, AppCommandLineArgs _args)
         : m_App_name(_name), m_Working_dir(_workingDir), m_Args(_args)
     {
-        if (s_Instance != nullptr)
-        {
-            utils::Logger::core_critical("An instance of application is already running.");
-            return; // TODO: assert;
-        }
+        EXW_ASSERT_CORE(s_Instance == nullptr, "An instance of application is already running.");
 
         if (!m_Working_dir.empty())
             std::filesystem::current_path(m_Working_dir);
