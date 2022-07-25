@@ -1,5 +1,5 @@
 /*  WindowsGLFWWindow.cpp
-*   Version: 1.1 (2022.07.22)
+*   Version: 1.1 (2022.07.25)
 *
 *   Contributor
 *       Arime-chan
@@ -27,9 +27,9 @@ namespace exw
         m_Data.Width = _props.Width;
         m_Data.Height = _props.Height;
 
-        EXW_LOG_CORE_TRACE("Creating window..");
-        EXW_LOG_CORE_TRACE("  Window name: {0}", _props.Title);
-        EXW_LOG_CORE_TRACE("  Window size: {0} x {1}", _props.Width, _props.Height);
+        EXW_LOG_CORE_INFO("Window info:");
+        EXW_LOG_CORE_INFO("  Window name: {0}", _props.Title);
+        EXW_LOG_CORE_INFO("  Window size: {0} x {1}", _props.Width, _props.Height);
 
         if (s_GLFT_window_count == 0)
         {
@@ -44,9 +44,13 @@ namespace exw
         ++s_GLFT_window_count;
         //glfwSetWindowAttrib(m_Native_window, GLFW_RESIZABLE, GLFW_FALSE);
 
+        EXW_LOG_CORE_TRACE("Initializing graphics context..");
         EXW_LOG_CORE_INDENT_IN();
-        glfwMakeContextCurrent(m_Native_window);
+        {
+            glfwMakeContextCurrent(m_Native_window);
+        }
         EXW_LOG_CORE_INDENT_OUT();
+        EXW_LOG_CORE_TRACE("Graphics context initialized.");
 
         glfwSetWindowUserPointer(m_Native_window, &m_Data);
         set_vsync(true); // vsync is enable by default;
@@ -145,7 +149,7 @@ namespace exw
 
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-        EXW_LOG_CORE_TRACE("  >> Done.");
+        EXW_LOG_CORE_TRACE("<< Done.");
     }
 
     WindowsGLFWWindow::~WindowsGLFWWindow()

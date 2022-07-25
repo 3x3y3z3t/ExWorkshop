@@ -1,5 +1,5 @@
 /*  exwpch.h
-*   Version: 1.5 (2022.07.22)
+*   Version: 1.6 (2022.07.25)
 *
 *   Contributor
 *       Arime-chan

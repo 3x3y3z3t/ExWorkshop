@@ -1,5 +1,5 @@
-/*  Application.h
-*   Version: 1.3 (2022.07.23)
+﻿/*  Application.h
+*   Version: 1.4 (2022.07.25)
 *
 *   Contributor
 *       Arime-chan
@@ -8,6 +8,7 @@
 #include "exwpch.h"
 
 #include "Window.h"
+
 #include "exw\Common.h"
 #include "exw\core\Layer.h"
 #include "exw\core\LayerStack.h"
@@ -31,10 +32,17 @@ namespace exw
         }
     };
 
+    struct AppSpecification
+    {
+        std::string Name = "ExWorkshop";
+        std::string WorkingDir;
+        AppCommandLineArgs CommandLineArgs;
+    };
+
     class Application
     {
     public:
-        Application(std::string _name, std::string _workingDir, AppCommandLineArgs _args);
+        Application(const AppSpecification& _specification);
         virtual ~Application();
 
         static Application& get() { return *s_Instance; }
@@ -47,6 +55,10 @@ namespace exw
         void on_event(events::Event& _event);
 
         Window& get_window() { return *m_Window; }
+        const AppSpecification& get_specification() const { return m_Specification; }
+
+        void set_max_fps(uint32_t _maxFps) { m_Max_fps = _maxFps; }
+        void set_max_ups(uint32_t _maxUps) { m_Max_ups = _maxUps; }
 
     private:
         void run();
@@ -56,11 +68,13 @@ namespace exw
 
         bool m_Running = false;
         bool m_Minimized = false;
-        float m_Last_frame_time = 0.0f;
+        float m_Last_render_time = 0.0f;
+        float m_Last_update_time = 0.0f;
 
-        std::string m_App_name;
-        std::string m_Working_dir;
-        AppCommandLineArgs m_Args;
+        uint32_t m_Max_fps = 60U;
+        uint32_t m_Max_ups = 60U;
+
+        AppSpecification m_Specification;
 
         LayerStack m_Layers;
 

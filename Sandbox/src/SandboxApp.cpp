@@ -1,5 +1,5 @@
 /*  SandboxApp.cpp
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.07.25)
 *
 *   Contributor
 *       Arime-chan
@@ -22,6 +22,8 @@ public:
 
     virtual void update(float _deltaTime)
     {
+        //EXW_LOG_DEBUG("deltaTime = {0}", _deltaTime);
+
         using namespace exw;
 
         if (Input::is_key_pressed(Keys::A))
@@ -42,7 +44,7 @@ public:
 
 
         exw::maths::vector2 pos(1, 2);
-        EXW_LOG_DEBUG("Vector {0}, {1}", pos.x, pos.y);
+        //EXW_LOG_DEBUG("Vector {0}, {1}", pos.x, pos.y);
 
     }
 
@@ -54,7 +56,7 @@ class Sandbox : public exw::Application
 {
 public:
     Sandbox(std::string _name, std::string _workingDir, exw::AppCommandLineArgs _args)
-        : exw::Application(_name, _workingDir, _args)
+        : exw::Application({ _name, _workingDir, _args })
     {
         push_layer(new SandboxLayer());
     }
