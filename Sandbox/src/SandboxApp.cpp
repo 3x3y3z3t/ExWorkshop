@@ -1,5 +1,5 @@
 /*  SandboxApp.cpp
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -41,8 +41,54 @@ public:
         }
 
 
-        exw::maths::vector2 pos(1, 2);
-        EXW_LOG_DEBUG("Vector {0}, {1}", pos.x, pos.y);
+        graphics::OrthographicCamera camera = graphics::OrthographicCamera(-1.0f, 1.0f, -1.0f, 1.0f);
+
+        refs::Ref<graphics::Shader> shader;
+        refs::Ref<graphics::VertexArray> vertexArray = graphics::VertexArray::create();
+
+        float vertices[3 * 7] = {
+            -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+             0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+             0.0f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f
+        };
+
+        refs::Ref<graphics::VertexBuffer> vertexBuffer = graphics::VertexBuffer::create(vertices, sizeof(vertices));
+
+        graphics::BufferLayout layout = {
+            { graphics::ShaderDataType::Float3, "l_Position" },
+            { graphics::ShaderDataType::Float4, "l_Color" }
+        };
+
+        refs::Ref<graphics::IndexBuffer> indexBuffer = graphics::IndexBuffer::create(new uint32_t[] { 0, 1, 2 }, 3);
+
+        vertexBuffer->set_layout(layout);
+        vertexArray->add_vertex_buffer(vertexBuffer);
+        vertexArray->set_index_buffer(indexBuffer);
+
+
+        shader = graphics::Shader::create("assets/shaders/light.glsl");
+
+
+        {
+            using namespace graphics;
+
+            Renderer::set_clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
+            Renderer::clear();
+
+            Renderer::begin_scene(camera);
+
+            shader->bind();
+
+            Renderer::submit(shader, vertexArray, maths::matrix4(1.0f));
+
+
+            graphics::Renderer::end_scene();
+        }
+
+
+
+
+
 
     }
 

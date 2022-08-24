@@ -1,5 +1,5 @@
 /*  Application.h
-*   Version: 1.2 (2022.07.21)
+*   Version: 1.3 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -12,6 +12,7 @@
 #include "exw\core\LayerStack.h"
 #include "exw\events\Event.h"
 #include "exw\events\WindowEvent.h"
+#include "exw\graphics\RendererAPI.h"
 #include "exw\utils\Logger.h"
 
 int main(int _argc, char* _argv[], char* _envp[]);
@@ -43,6 +44,8 @@ namespace exw
         static Application& get() { return *s_Instance; }
 
         void shutdown();
+
+        void switch_renderer_api(graphics::RendererAPI::API _api);
 
         void push_layer(Layer* _layer);
         void push_overlay(Layer* _overlay);

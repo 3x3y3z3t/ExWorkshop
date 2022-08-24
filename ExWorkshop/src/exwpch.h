@@ -1,5 +1,5 @@
 /*  exwpch.h
-*   Version: 1.5 (2022.07.22)
+*   Version: 1.6 (2022.07.23)
 *
 *   Contributor
 *       Arime-chan
@@ -11,9 +11,11 @@
 
 #include <ctime>
 #include <filesystem>
+#include <fstream>
 #include <functional>
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>

@@ -1,30 +1,27 @@
-/*  GraphicsContext.cpp
-*   Version: 1.1 (2022.08.24)
+/*  RendererAPI.cpp
+*   Version: 1.0 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
 */
 #include "exwpch.h"
-#include "GraphicsContext.h"
+#include "RendererAPI.h"
 
-#include "Renderer.h"
-#include "exw\Common.h"
 #include "exw\utils\Logger.h"
-
-#include "platform\OpenGL\OpenGLContext.h"
-
-#include <GLFW\glfw3.h>
+#include "Platform\OpenGL\OpenGLRendererAPI.h"
 
 namespace exw
 {
     namespace graphics
     {
-        refs::Scoped<GraphicsContext> GraphicsContext::create(void* _window)
+        RendererAPI::API RendererAPI::s_Active_api = RendererAPI::API::None;
+
+        refs::Scoped<RendererAPI> RendererAPI::create()
         {
             RendererAPI::API activeApi = Renderer::get_active_api();
             switch (activeApi)
             {
-                case RendererAPI::API::OpenGL:   return refs::create_scoped<OpenGLContext>(static_cast<GLFWwindow*>(_window));
+                case RendererAPI::API::OpenGL:   return refs::create_scoped<OpenGLRendererAPI>();
             }
 
             EXW_LOG_CORE_CRITICAL("RendererAPI {0} is not supported.", (uint8_t)activeApi);

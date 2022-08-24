@@ -1,5 +1,5 @@
 /*  Common.h
-*   Version: 1.2 (2022.07.21)
+*   Version: 1.3 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -38,3 +38,6 @@ namespace exw
 
     }
 }
+
+#define EXW_ASSERT_CORE(_x, ...) if (!(_x)) EXW_LOG_CORE_CRITICAL(__VA_ARGS__)
+#define EXW_ASSERT_CORE(_x) if (!(_x)) EXW_LOG_CORE_CRITICAL("Assertion false")

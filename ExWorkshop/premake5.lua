@@ -25,7 +25,8 @@ project "ExWorkshop"
         "%{IncludeDir.glad}",
         "%{IncludeDir.glfw}",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.spdlog}"
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.vulkan_sdk}"
     }
     
     -- externalincludedirs {
@@ -57,13 +58,31 @@ project "ExWorkshop"
         runtime "Debug"
         symbols "on"
 
+        links {
+            "%{Library.shaderc_dbg}",
+            "%{Library.spirv_cross_dbg}",
+            "%{Library.spirv_cross_glsl_dbg}"
+        }
+
     filter "configurations:Release"
         defines "EXW_REL"
         runtime "Release"
         symbols "on"
+
+        links {
+            "%{Library.shaderc_rel}",
+            "%{Library.spirv_cross_rel}",
+            "%{Library.spirv_cross_glsl_rel}"
+        }
 
     filter "configurations:Dist"
         defines "EXW_DST"
         runtime "Release"
         symbols "off"
         optimize "on"
+
+        links {
+            "%{Library.shaderc_rel}",
+            "%{Library.spirv_cross_rel}",
+            "%{Library.spirv_cross_glsl_rel}"
+        }

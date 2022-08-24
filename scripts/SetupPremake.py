@@ -14,10 +14,10 @@ class PremakeConfig:
     @classmethod
     def Validate(_me):
         if not _me.__IsPremakeInstalled():
-            print("Premake is not installed")
+            print("Premake is not installed.")
             return False
 
-        print(f"Premake is installed at {os.path.abspath(_me.premakeDir)}")
+        print(f"Premake is installed at {os.path.abspath(_me.premakeDir)}.")
         return True
 
     @classmethod
@@ -44,11 +44,11 @@ class PremakeConfig:
         Utils.DownloadFile(_me.premakeZipUrls, premakePath)
         print("Extracting {0:s}..".format(premakePath))
         Utils.UnzipFile(premakePath, True)
-        print(f"Premake {_me.premakeVersion} has been downloaded to '{_me.premakeDir}'")
+        print(f"Premake {_me.premakeVersion} has been downloaded to {_me.premakeDir}.")
             
         premakeLicensePath = f"{_me.premakeDir}/LICENSE.txt"
-        print("Downloading {0:s} to {1:s}".format(_me.premakeLicenseUrl, premakeLicensePath))
+        print("Downloading {0:s} to {1:s}..".format(_me.premakeLicenseUrl, premakeLicensePath))
         Utils.DownloadFile(_me.premakeLicenseUrl, premakeLicensePath)
-        print(f"Premake License file has been downloaded to '{_me.premakeDir}'")
+        print(f"Premake License file has been downloaded to {_me.premakeDir}.")
 
         return True

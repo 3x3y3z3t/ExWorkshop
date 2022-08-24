@@ -1,5 +1,5 @@
 /*  Window.h
-*   Version: 1.0 (2022.07.21)
+*   Version: 1.1 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -31,6 +31,8 @@ namespace exw
         virtual ~Window() = default;
 
         static refs::Scoped<Window> create(const WindowProperties& _prop = WindowProperties());
+
+        virtual void initialize_graphics_context() = 0;
 
         virtual void update() = 0;
 

@@ -1,30 +1,26 @@
-/*  GraphicsContext.cpp
-*   Version: 1.1 (2022.08.24)
+/*  VertexArray.cpp
+*   Version: 1.0 (2022.07.24)
 *
 *   Contributor
 *       Arime-chan
 */
 #include "exwpch.h"
-#include "GraphicsContext.h"
+#include "VertexArray.h"
 
 #include "Renderer.h"
-#include "exw\Common.h"
 #include "exw\utils\Logger.h"
-
-#include "platform\OpenGL\OpenGLContext.h"
-
-#include <GLFW\glfw3.h>
+#include "Platform\OpenGL\OpenGLVertexArray.h"
 
 namespace exw
 {
     namespace graphics
     {
-        refs::Scoped<GraphicsContext> GraphicsContext::create(void* _window)
+        refs::Ref<VertexArray> VertexArray::create()
         {
             RendererAPI::API activeApi = Renderer::get_active_api();
             switch (activeApi)
             {
-                case RendererAPI::API::OpenGL:   return refs::create_scoped<OpenGLContext>(static_cast<GLFWwindow*>(_window));
+                case RendererAPI::API::OpenGL:   return refs::create_ref<OpenGLVertexArray>();
             }
 
             EXW_LOG_CORE_CRITICAL("RendererAPI {0} is not supported.", (uint8_t)activeApi);

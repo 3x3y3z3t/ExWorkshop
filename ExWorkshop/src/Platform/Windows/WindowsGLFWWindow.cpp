@@ -1,5 +1,5 @@
 /*  WindowsGLFWWindow.cpp
-*   Version: 1.3 (2022.07.22)
+*   Version: 1.4 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -38,21 +38,12 @@ namespace exw
             glfwSetErrorCallback(glfw_err_callback);
         }
 
-            m_Native_window = glfwCreateWindow((int)_props.Width, (int)_props.Height, _props.Title.c_str(), nullptr, nullptr);
-            ++s_GLFT_window_count;
-            glfwSetWindowAttrib(m_Native_window, GLFW_RESIZABLE, GLFW_FALSE);
+        m_Native_window = glfwCreateWindow((int)_props.Width, (int)_props.Height, _props.Title.c_str(), nullptr, nullptr);
+        ++s_GLFT_window_count;
+        glfwSetWindowAttrib(m_Native_window, GLFW_RESIZABLE, GLFW_FALSE);
 
-            EXW_LOG_CORE_TRACE("Initializing graphics context..");
-        EXW_LOG_CORE_INDENT_IN();
-        {
-            m_Graphics_context = graphics::GraphicsContext::create(m_Native_window);
-            m_Graphics_context->init();
-        }
-        EXW_LOG_CORE_INDENT_OUT();
-            EXW_LOG_CORE_TRACE("Graphics context initialized.");
 
-            glfwSetWindowUserPointer(m_Native_window, &m_Data);
-            set_vsync(true); // vsync is enable by default;
+        glfwSetWindowUserPointer(m_Native_window, &m_Data);
 
         #pragma region GLFW Callbacks Setup
         glfwSetWindowSizeCallback(m_Native_window, [] (GLFWwindow* _window, int _width, int _height)
@@ -146,8 +137,6 @@ namespace exw
         });
         #pragma endregion
 
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-
         EXW_LOG_CORE_TRACE("<< Done.");
     }
 
@@ -158,6 +147,14 @@ namespace exw
 
         if (s_GLFT_window_count == 0)
             glfwTerminate();
+    }
+
+    void WindowsGLFWWindow::initialize_graphics_context()
+    {
+        m_Graphics_context = graphics::GraphicsContext::create(m_Native_window);
+        m_Graphics_context->init();
+
+        set_vsync(true); // vsync is enable by default;
     }
 
     void WindowsGLFWWindow::update()

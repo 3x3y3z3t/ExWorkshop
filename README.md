@@ -3,5 +3,5 @@
 # Current Version
 | Project    | Version |
 |------------|---------|
-| ExWorkshop | v0.7.0  |
-| Sandbox    | v0.1.1  |
+| ExWorkshop | v0.8.0  |
+| Sandbox    | v0.1.2  |

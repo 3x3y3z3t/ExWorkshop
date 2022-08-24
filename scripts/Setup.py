@@ -6,10 +6,11 @@ import platform
 from SetupPython import PythonConfig
 PythonConfig.Validate()
 
-#os.chdir('./../');
+from SetupVulkan import VulkanConfig
+VulkanConfig.Validate()
 
-#from SetupVulkan import VulkanConfig
-#VulkanConfig.Validate()
+print("\nUpdating submodules..")
+subprocess.call(["git", "submodule", "update", "--init", "--recursive"])
 
 from SetupPremake import PremakeConfig
 if not PremakeConfig.Validate():

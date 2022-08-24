@@ -16,10 +16,10 @@ class PythonConfig:
     @classmethod
     def __ValidatePython(_me, _verMajor = 3, _verMinor = 3):
         if sys.version is not None:
-            print("Python version {0:d}.{1:d}.{2:d} detected".format(sys.version_info.major, sys.version_info.minor, sys.version_info.micro))
+            print("Python version {0:d}.{1:d}.{2:d} detected.".format(sys.version_info.major, sys.version_info.minor, sys.version_info.micro))
             
             if sys.version_info.major < _verMajor or (sys.version_info.major == _verMajor and sys.version_info.minor < _verMinor):
-                print("ExWorkshop Setup requires Python version {0:d}.{1:d} or higher".format(_verMajor, _verMinor))
+                print("ExWorkshop Setup requires Python version {0:d}.{1:d} or higher.".format(_verMajor, _verMinor))
                 return False
             return True
 

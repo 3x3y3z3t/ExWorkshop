@@ -1,5 +1,5 @@
 /*  WindowsGLFWWindow.cpp
-*   Version: 1.1 (2022.07.22)
+*   Version: 1.2 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -19,7 +19,9 @@ namespace exw
         WindowsGLFWWindow(const WindowProperties& _props);
         virtual ~WindowsGLFWWindow();
 
-        void update() override;
+        virtual void initialize_graphics_context() override;
+
+        virtual void update() override;
 
         virtual bool is_vsync() const override;
         virtual uint32_t get_width() const override { return m_Data.Width; }
