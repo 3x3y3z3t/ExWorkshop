@@ -48,10 +48,11 @@ public:
         refs::Ref<graphics::Shader> shader;
         refs::Ref<graphics::VertexArray> vertexArray = graphics::VertexArray::create();
 
-        float vertices[3 * 7] = {
-            -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-             0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-             0.0f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f
+        float vertices[4 * 7] = {
+            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+             0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+             0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+            -0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f,
         };
 
         refs::Ref<graphics::VertexBuffer> vertexBuffer = graphics::VertexBuffer::create(vertices, sizeof(vertices));
@@ -61,7 +62,7 @@ public:
             { graphics::ShaderDataType::Float4, "l_Color" }
         };
 
-        refs::Ref<graphics::IndexBuffer> indexBuffer = graphics::IndexBuffer::create(new uint32_t[] { 0, 1, 2 }, 3);
+        refs::Ref<graphics::IndexBuffer> indexBuffer = graphics::IndexBuffer::create(new uint32_t[] { 0, 1, 2, 2, 3, 0 }, 6);
 
         vertexBuffer->set_layout(layout);
         vertexArray->add_vertex_buffer(vertexBuffer);
