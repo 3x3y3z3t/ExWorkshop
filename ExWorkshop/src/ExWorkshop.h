@@ -29,6 +29,7 @@
 #include "exw\maths\Maths.h"
 
 #include "exw\utils\Logger.h"
+#include "exw\utils\FileSystem.h"
 
 
 #include "exw\EntryPoint.h"

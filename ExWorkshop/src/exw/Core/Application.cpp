@@ -9,38 +9,31 @@
 
 #include "exw\graphics\Renderer.h"
 
-#include <glad\gl.h>
-
 namespace exw
 {
     Application* Application::s_Instance = nullptr;
 
-    Application::Application(std::string _name, std::string _workingDir, AppCommandLineArgs _args)
-        : m_App_name(_name), m_Working_dir(_workingDir), m_Args(_args)
+    Application::Application(const AppSpecification& _specification)
+        : m_Specification(_specification)
     {
-        if (s_Instance != nullptr)
-        {
-            utils::Logger::core_critical("An instance of application is already running.");
-            return; // TODO: assert;
-        }
+        EXW_ASSERT_CORE(s_Instance == nullptr, "An instance of application is already running.");
 
-        if (!m_Working_dir.empty())
-            std::filesystem::current_path(m_Working_dir);
+        if (!_specification.WorkingDir.empty())
+            std::filesystem::current_path(_specification.WorkingDir);
 
         EXW_LOG_CORE_INFO("App info:");
-        EXW_LOG_CORE_INFO("  App name         : {0}", _name);
+        EXW_LOG_CORE_INFO("  App name         : {0}", _specification.Name);
         EXW_LOG_CORE_INFO("  Working directory: {0}", std::filesystem::current_path());
-        EXW_LOG_CORE_INFO("  Command Line Args: {0}", _args.Count);
-        for (int i = 0; i < m_Args.Count; ++i)
+        EXW_LOG_CORE_INFO("  Command Line Args: {0}", _specification.CommandLineArgs.Count);
+        for (int i = 0; i < _specification.CommandLineArgs.Count; ++i)
         {
-            EXW_LOG_CORE_INFO("    {0}", m_Args[i]);
+            EXW_LOG_CORE_INFO("    {0}", _specification.CommandLineArgs[i]);
         }
 
         EXW_LOG_CORE_TRACE("Creating window..");
         EXW_LOG_CORE_INDENT_IN();
         {
-            m_Window = Window::create(WindowProperties(_name));
-
+            m_Window = Window::create(WindowProperties(_specification.Name));
             m_Window->set_event_callback([this] (auto&... _args) -> decltype(auto)
             {
                 return this->on_event(std::forward<decltype(_args)>(_args)...);
@@ -78,7 +71,6 @@ namespace exw
 
     Application::~Application()
     {
-        EXW_LOG_CORE_TRACE("Closing Application..");
 
         EXW_LOG_CORE_TRACE("Shutting down renderer..");
         EXW_LOG_CORE_INDENT_IN();

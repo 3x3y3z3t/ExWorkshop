@@ -35,5 +35,6 @@ namespace exw
         glfwGetCursorPos(window, &x, &y);
         return { (float)x, (float)y };
     }
+
 }
 #pragma warning(restore:26812)

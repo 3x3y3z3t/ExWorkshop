@@ -1,5 +1,5 @@
 /*  EntryPoint.h
-*   Version: 1.5 (2022.07.23)
+*   Version: 1.5 (2022.07.25)
 *
 *   Previois version
 *       v1.2 (EntryPoint.cpp)
@@ -26,12 +26,18 @@ int main(int _argc, char* _argv[], char* _envp[])
     }
     EXW_LOG_CORE_INDENT_OUT();
     EXW_LOG_CORE_TRACE("Application created.");
-    
-    app->run();
 
-    delete app;
+    {
+        app->run();
+    }
+
+    EXW_LOG_CORE_TRACE("Closing Application..");
+    EXW_LOG_CORE_INDENT_IN();
+    {
+        delete app;
+    }
+    EXW_LOG_CORE_INDENT_OUT();
     EXW_LOG_CORE_TRACE("Application closed.");
-
 
 
     return 0;
