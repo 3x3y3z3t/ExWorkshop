@@ -1,5 +1,5 @@
 /*  Shader.cpp
-*   Version: 1.0 (2022.08.24)
+*   Version: 1.1 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -25,6 +25,7 @@ namespace exw
             }
 
             EXW_LOG_CORE_CRITICAL("RendererAPI {0} is not supported.", (uint8_t)activeApi);
+            EXW_ASSERT_CORE(false);
             return nullptr;
         }
 
@@ -37,12 +38,18 @@ namespace exw
             }
 
             EXW_LOG_CORE_CRITICAL("RendererAPI {0} is not supported.", (uint8_t)activeApi);
+            EXW_ASSERT_CORE(false);
             return nullptr;
         }
 
         void ShaderFactory::add(const std::string _name, const refs::Ref<Shader>& _shader)
         {
-            EXW_ASSERT_CORE(!is_existed(_name), "Shader {0} is already existed.", _name);
+            if (is_existed(_name))
+            {
+                EXW_LOG_CORE_ERROR("Shader {0} is already existed.", _name);
+                return;
+            }
+            
             m_Shaders[_name] = _shader;
         }
 
@@ -73,7 +80,12 @@ namespace exw
 
         refs::Ref<Shader> ShaderFactory::get(const std::string& _name)
         {
-            EXW_ASSERT_CORE(!is_existed(_name), "Shader {0} not found.", _name);
+            if (!is_existed(_name))
+            {
+                EXW_LOG_CORE_ERROR("Shader {0} not found.", _name);
+                return nullptr;
+            }
+
             return m_Shaders[_name];
         }
 

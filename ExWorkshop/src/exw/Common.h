@@ -63,7 +63,7 @@
     #define EXW_DEBUGBREAK()
 #endif
 
-#define EXW_INTERNAL_ASSERT_IMPL(_type, _check, _msg, ...)  { if (!(_check)) {EXW_LOG##_type##ERROR(_msg, __VA_ARGS__); EXW_DEBUGBREAK(); } }
+#define EXW_INTERNAL_ASSERT_IMPL(_type, _check, _msg, ...)  { if (!(_check)) { EXW_LOG##_type##ERROR(_msg, __VA_ARGS__); EXW_DEBUGBREAK(); } }
 #define EXW_INTERNAL_ASSERT_WITH_MSG(_type, _check, ...)    EXW_INTERNAL_ASSERT_IMPL(_type, _check, "Assertion failed: {0}", __VA_ARGS__)
 #define EXW_INTERNAL_ASSERT_NO_MSG(_type, _check)                                                                                                                       \
     EXW_INTERNAL_ASSERT_IMPL(_type, _check, "Assertion failed: {0} ({1} @{2})", EXW_STRINGIFY(_check), std::filesystem::path(__FILE__).filename().string(), __LINE__)

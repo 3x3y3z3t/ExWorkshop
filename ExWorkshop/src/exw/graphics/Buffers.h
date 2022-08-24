@@ -1,5 +1,5 @@
 /*  Buffers.h
-*   Version: 1.0 (2022.07.23)
+*   Version: 1.1 (2022.08.24)
 * 
 *   Contributor
 *       Arime-chan
@@ -113,7 +113,8 @@ namespace exw
                 case exw::graphics::ShaderDataType::Matrix4:    return 4U * 4U * 4U;
             }
 
-            EXW_ASSERT_CORE(false, "ShaderDataType {0} is not supported.", (uint32_t)_type);
+            EXW_LOG_CORE_ERROR("ShaderDataType {0} is not supported.", (uint32_t)_type);
+            EXW_ASSERT_CORE(false);
             return 0U;
         }
 
@@ -138,7 +139,8 @@ namespace exw
                 case exw::graphics::ShaderDataType::Matrix4:    return 4U;
             }
 
-            EXW_ASSERT_CORE(false, "ShaderDataType {0} is not supported.", (uint32_t)Type);
+            EXW_LOG_CORE_ERROR("ShaderDataType {0} is not supported.", (uint32_t)Type);
+            EXW_ASSERT_CORE(false);
             return 0U;
         }
 

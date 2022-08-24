@@ -1,5 +1,5 @@
 /*  OpenGLVertexArray.cpp
-*   Version: 1.0 (2022.07.24)
+*   Version: 1.1 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -32,7 +32,9 @@ namespace exw
                 case exw::graphics::ShaderDataType::Matrix4:        return GL_FLOAT;
             }
 
-            EXW_ASSERT_CORE(false, "ShaderDataType {0} is not supported.", (uint32_t)_type);
+
+            EXW_LOG_CORE_ERROR("ShaderDataType {0} is not supported.", (uint32_t)_type);
+            EXW_ASSERT_CORE(false);
             return 0U;
         }
 
@@ -119,7 +121,11 @@ namespace exw
                         break;
                     }
 
-                    default: EXW_ASSERT_CORE(false, "ShaderDataType {0} is not supported.", (uint32_t)element.Type);
+                    default:
+                    {
+                        EXW_LOG_CORE_ERROR("ShaderDataType {0} is not supported.", (uint32_t)element.Type);
+                        EXW_ASSERT_CORE(false);
+                    }
                 }
             }
 

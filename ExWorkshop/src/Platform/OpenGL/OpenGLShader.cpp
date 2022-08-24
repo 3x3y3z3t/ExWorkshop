@@ -1,5 +1,5 @@
 /*  OpenGLShader.cpp
-*   Version: 1.0 (2022.07.23)
+*   Version: 1.1 (2022.08.24)
 *
 *   Contributor
 *       Arime-chan
@@ -26,7 +26,8 @@ namespace exw
             if (_type == "fragment" || _type == "pixel")
                 return GL_FRAGMENT_SHADER;
 
-            EXW_ASSERT_CORE(false, "Shader type {0} is not supported.", _type);
+            EXW_LOG_CORE_ERROR("Shader type {0} is not supported.", _type);
+            EXW_ASSERT_CORE(false);
             return 0;
         }
 
@@ -38,7 +39,8 @@ namespace exw
                 case GL_FRAGMENT_SHADER:    return shaderc_glsl_fragment_shader;
             }
 
-            EXW_ASSERT_CORE(false, "Shader stage {0} is not supported.", _stage);
+            EXW_LOG_CORE_ERROR("Shader stage {0} is not supported.", _stage);
+            EXW_ASSERT_CORE(false);
             return (shaderc_shader_kind)0;
         }
 
@@ -50,7 +52,8 @@ namespace exw
                 case GL_FRAGMENT_SHADER:    return "GL_FRAGMENT_SHADER";
             }
 
-            EXW_ASSERT_CORE(false, "Shader stage {0} is not supported.", _stage);
+            EXW_LOG_CORE_ERROR("Shader stage {0} is not supported.", _stage);
+            EXW_ASSERT_CORE(false);
             return nullptr;
         }
 
@@ -62,7 +65,8 @@ namespace exw
                 case GL_FRAGMENT_SHADER:    return ".cached_opengl_frag";
             }
 
-            EXW_ASSERT_CORE(false, "Shader stage {0} is not supported.", _stage);
+            EXW_LOG_CORE_ERROR("Shader stage {0} is not supported.", _stage);
+            EXW_ASSERT_CORE(false);
             return "";
         }
 
@@ -74,7 +78,8 @@ namespace exw
                 case GL_FRAGMENT_SHADER:    return ".cached_vulkan_frag";
             }
 
-            EXW_ASSERT_CORE(false, "Shader stage {0} is not supported.", _stage);
+            EXW_LOG_CORE_ERROR("Shader stage {0} is not supported.", _stage);
+            EXW_ASSERT_CORE(false);
             return "";
         }
 
@@ -289,7 +294,11 @@ namespace exw
 
                 size_t begin = pos + typeTokenLength + 1;
                 std::string type = _source.substr(begin, eol - begin);
-                EXW_ASSERT_CORE(utils::shader_type_from_string(type) != 0U, "Invalid shader type specifier {0}.", type);
+                if (utils::shader_type_from_string(type) == 0U)
+                {
+                    EXW_LOG_CORE_ERROR("Invalid shader type specifier {0}.", type);
+                    EXW_ASSERT_CORE(false);
+                }
 
                 size_t nextLinePos = _source.find_first_not_of("\r\n", eol);
                 EXW_ASSERT_CORE(nextLinePos != std::string::npos, "Syntax error (shader source).");
