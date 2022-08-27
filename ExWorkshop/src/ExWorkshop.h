@@ -1,5 +1,5 @@
 /*  ExWorkshop.h
-*   Version: 1.1 (2022.08.24)
+*   Version: 1.2 (2022.08.27)
 *
 *   Contributor
 *       Arime-chan
@@ -24,6 +24,7 @@
 #include "exw\graphics\Renderer.h"
 #include "exw\graphics\RendererAPI.h"
 #include "exw\graphics\Shader.h"
+#include "exw\graphics\Texture.h"
 #include "exw\graphics\VertexArray.h"
 
 #include "exw\maths\Maths.h"

@@ -14,6 +14,8 @@ project "ExWorkshop"
     files {
         "src/**.h",
         "src/**.cpp",
+        "%{IncludeDir.stb_image}/**.h",
+        "%{IncludeDir.stb_image}/**.cpp",
     }
 
     defines {
@@ -26,7 +28,8 @@ project "ExWorkshop"
         "%{IncludeDir.glfw}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.spdlog}",
-        "%{IncludeDir.vulkan_sdk}"
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.vulkan_sdk}",
     }
     
     -- externalincludedirs {

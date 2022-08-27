@@ -10,6 +10,7 @@ IncludeDir["glfw"] = "%{vendorDir}/glfw/include"
 IncludeDir["glm"] = "%{vendorDir}/glm"
 IncludeDir["shaderc"] = "%{vendorDir}/shaderc/include"
 IncludeDir["spdlog"] = "%{vendorDir}/spdlog/include"
+IncludeDir["stb_image"] = "%{vendorDir}/stb_image"
 IncludeDir["spirv_cross"] = "%{vendorDir}/SPIRV-Cross"
 IncludeDir["vulkan_sdk"] = "%{VulkanSDKDir}/Include"
 

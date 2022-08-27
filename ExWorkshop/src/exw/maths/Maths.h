@@ -1,5 +1,5 @@
 /*  Maths.h
-*   Version: 1.0 (2022.07.22)
+*   Version: 1.1 (2022.08.27)
 *
 *   Contributor
 *       Arime-chan
@@ -8,6 +8,7 @@
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm\glm.hpp>
+#include <glm\gtx\transform.hpp>
 
 namespace exw
 {

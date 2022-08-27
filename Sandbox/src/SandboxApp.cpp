@@ -1,5 +1,5 @@
 /*  SandboxApp.cpp
-*   Version: 1.1 (2022.08.24)
+*   Version: 1.2 (2022.08.27)
 *
 *   Contributor
 *       Arime-chan
@@ -68,21 +68,53 @@ public:
         vertexArray->add_vertex_buffer(vertexBuffer);
         vertexArray->set_index_buffer(indexBuffer);
 
-
         shader = graphics::Shader::create("assets/shaders/light.glsl");
 
-
         {
+            float texturedVertices[4 * 5] = {
+                -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+                 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+                -0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
+            };
+
             using namespace graphics;
+
+            BufferLayout texturedLayout = {
+                { ShaderDataType::Float3, "l_Position" },
+                { ShaderDataType::Float2, "l_Texcoord" },
+            };
+
+            refs::Ref<VertexBuffer> texturedVB = VertexBuffer::create(texturedVertices, sizeof(texturedVertices));
+            texturedVB->set_layout(texturedLayout);
+
+            refs::Ref<VertexArray> texturedVA = VertexArray::create();
+            texturedVA->add_vertex_buffer(texturedVB);
+            texturedVA->set_index_buffer(indexBuffer);
+
+            refs::Ref<Shader> texturedShader = Shader::create("assets/shaders/Textured.glsl");
+
+            refs::Ref<Texture2D> texturedTexture = Texture2D::create("assets/textures/ShipIcons.png");
+
 
             Renderer::set_clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
             Renderer::clear();
 
             Renderer::begin_scene(camera);
 
-            shader->bind();
 
+
+
+            texturedTexture->bind(0U);
+            texturedShader->bind();
+            Renderer::submit(texturedShader, texturedVA, glm::translate(maths::vector3(0.2f, 0.0f, 0.0f)));
+
+
+            shader->bind();
             Renderer::submit(shader, vertexArray, maths::matrix4(1.0f));
+
+
+
 
 
             graphics::Renderer::end_scene();
